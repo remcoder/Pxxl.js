@@ -1,0 +1,2 @@
+var innerHeight;
+var innerWidth;
