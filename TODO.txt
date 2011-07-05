@@ -1,7 +1,3 @@
-
-fix testpage:
-  - update UI when selecting a style
-
 github page
 
   - logo
@@ -45,3 +41,5 @@ rewrite editor
 
 more fonts:
   - install pcf2bdf and other tools
+  - check also these ASCII art fonts http://ascii.mastervb.net/
+  
