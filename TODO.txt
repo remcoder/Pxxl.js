@@ -1,6 +1,3 @@
-code: 
-  git init
-  push to github
 
 github page
   - intro
@@ -12,20 +9,18 @@ github page
   - favicon
   - analytics
   - webmaster tools
-  
-testpage:
-  - cross-browser: FF, CH, IE, SA, OP
+
+PUBLISH!
+
+testpage tuning:
   - no canvas msg
-  - add link to github page
   - on github, put link going back to homepage
+
+update testpage  
   - charactermap
   - change UI, reflecting chosen renderer
   - new Style: unicode character
   - vibrating circles
-
-license!
-
-PUBLISH!
 
 turn it into a microlib:
   - remove JQuery dependency (ajax calls)
