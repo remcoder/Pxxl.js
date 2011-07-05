@@ -1,34 +1,31 @@
 
+fix testpage:
+  - update UI when selecting a style
+
 github page
-  - intro
+
   - logo
   - example shots
     - zoomed in on 'pixels'
+    
+  - intro
   - usage instructions
   - call for more fonts
   - favicon
   - analytics
   - webmaster tools
 
-PUBLISH!
-
 testpage tuning:
   - no canvas msg
-  - on github, put link going back to homepage
 
 update testpage  
   - charactermap
-  - change UI, reflecting chosen renderer
   - new Style: unicode character
   - vibrating circles
 
-turn it into a microlib:
-  - remove JQuery dependency (ajax calls)
+minimize deps:
+  - remove JQuery dependency (only used for ajax)
   - remove embedded jsparse / my.class
-
-update homepage
-  - make homepage more SEO friendly
-  - add screenshot and link to githubpage
       
 add renderer options:
   - pixel vert/hor doubling (like second c64 font)
@@ -37,20 +34,14 @@ Core
   - vertical align not correct: use mplus_h10-b, type: 'xy', the y is higher!
   - character spacing
 
-PixelText:
-  - 
-
 performance:
   - cache the rendering of an individual 'pixel' as a separate canvas;
   - caching per row of pixels?
   - cache also per character?
 
 rewrite editor
-  - using backbone
+  - using backbone.js
   - add textboxes for setting other values than just the bitmap
-
-check library code with jslint
-compile library with closure compiler?
 
 more fonts:
   - install pcf2bdf and other tools
