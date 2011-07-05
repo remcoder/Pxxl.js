@@ -160,23 +160,25 @@
     <label>scale</label>
     <input name='scale' type='range' min='0' max='16' step='1' value='12' />
     
-    <br>    
-    <label>shadow 1</label>
-    <input name='shadow1' class='color' type='text' value='660B66' />
+    <div class='style-blocks'>
+      <br>    
+      <label>shadow 1</label>
+      <input name='shadow1' class='color' type='text' value='660B66' />
     
-    <br>
-    <label>shadow 2</label>
-    <input name='shadow2' class='color' type='text' value='D91650' />
+      <br>
+      <label>shadow 2</label>
+      <input name='shadow2' class='color' type='text' value='D91650' />
     
-    <br>
-    <label>x offset</label>
-    <input name='Xoffset' class='range-slider x-offset' type='range' min='-10' max='10' step='1' value='-2' />
+      <br>
+      <label>x offset</label>
+      <input name='Xoffset' class='range-slider x-offset' type='range' min='-10' max='10' step='1' value='-2' />
     
-    <br>
-    <label>y offset</label>
-    <input name='Yoffset' class='range-slider y-offset' type='range' min='-10' max='10' step='1' value='2' />
+      <br>
+      <label>y offset</label>
+      <input name='Yoffset' class='range-slider y-offset' type='range' min='-10' max='10' step='1' value='2' />
     </div>
     
+    </div>
    </div>
    
    <div class="footer">
@@ -289,6 +291,13 @@
       //charMap( $select.val() );
     }
     
+    $selectStyle.change(function () {
+      console.log('slide');
+      if ( $selectStyle.val() == "blocks")
+        $(".style-blocks").slideDown();
+      else
+        $(".style-blocks").slideUp();
+    });
     $('select, input').change(update);
     $('input[name=text]').keyup(update);
     $(document).click(update);
