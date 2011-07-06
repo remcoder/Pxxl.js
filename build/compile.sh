@@ -1,3 +1,4 @@
 echo compiling with Google Closure..
-python compile.py pxxl-0.1.min.js
-wc -c pxxl-0.1.min.js
+TARGET=pxxl-0.2.min.js
+python compile.py $TARGET
+wc -c $TARGET

@@ -2,7 +2,7 @@ import sys,os, glob, commands
 
 TARGET=sys.argv[1]
 
-files = ["LICENSE.txt", "../lib/jsparse.js", "../lib/my.class.min.js", "js/font.js", "js/font.glyph.js", "js/font.loader.js", "js/parser.js",  "js/styles/squares.js", "js/styles/blocks.js", "js/styles/circles.js"]
+files = ["js/Pxxl.js", "../lib/jsparse.js", "../lib/my.class.min.js", "js/font.js", "js/font.glyph.js", "js/font.loader.js", "js/parser.js",  "js/styles/squares.js", "js/styles/blocks.js", "js/styles/circles.js"]
 
 JS = " ".join(["--js ../" + filename for filename in files ])
 
