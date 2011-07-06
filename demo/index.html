@@ -272,7 +272,7 @@
     }
     
     function update(evt) {      
-      console.log('update');
+  //    console.log('update');
       PixelText($pixelText , { 
         text: $inputText.val(),
         font : $selectFont.val(),
@@ -288,6 +288,16 @@
         Yoffset: ~~$inputYoffset.val()
       });
       
+//      PixelText($("canvas") , { 
+//        text: 'hello world!',
+//        font : 'fonts/c64.bdf',
+//        style : 'squares',
+//        scale: '10',
+
+//        fill: "#66f",
+//        stroke: "black"
+//      });
+
       //charMap( $select.val() );
     }
     
@@ -304,5 +314,19 @@
     update();
     
     </script>
+
+      <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-24377032-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
   </body>
 </html>
