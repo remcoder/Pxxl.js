@@ -24,13 +24,14 @@
     a { color: #D91650; }
     .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
     .download { float: right; }
-    pre { background: #222; xcolor: #fff; padding: 0 15px 15px 15px; font-size: 120%; color: #bbf; border-radius: 5px;}
+    pre { background: #222; xcolor: #fff; padding: 15px; font-size: 120%; color: #bbf; border-radius: 5px;}
+    pre.example-code { padding: 0 15px 15px 15px; }
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     .footer { text-align:center; padding-top:30px; font-style: italic; }
     .example { text-align: center; background-color: #222; border-radius: 5px; }
   </style>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
-  <script src="demo/pxxl-0.1.min.js" type="text/javascript"></script>
+  <script src="demo/pxxl-0.2.min.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -48,36 +49,38 @@
     <h2>Get Started</h2>
     <p>
       <ol>
-        <li>include the <a href="demo/pxxl-0.1.min.js">pxxl-0.1.min.js</a> script.</li>
+        <li>include the <a href="demo/pxxl-0.2.min.js">pxxl-0.2.min.js</a> script.</li>
         <li>include <a href="http://docs.jquery.com/Downloading_jQuery">JQuery</a> (this dependency should be removed soon)</li>
         <li>put <a href="fonts.zip">these bitmap fonts</a> in your www directory</li>
       </ol>
     </p>
 
-    <p>To get started immediately, create a <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html">canvas</a> element and just call the 'PixelText' function:
-    <pre><xmp>
-      <canvas />
-      <script>
-      PixelText($("canvas") , { 
-        text: 'hello world!',
-        font : 'fonts/c64.bdf',
-        style : 'squares',
-        scale: '10',
-        fill: "#66f",
-        stroke: "black"
-      });
-      </script></xmp></pre>
-     which results in something like:<br />
+    <p>To get started immediately, create a <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html">canvas</a> element and just call the 'Pxxl' function:
+    <pre class="example-code"><xmp>
+  <canvas id='example'></canvas>
+  <script>
+  Pxxl({ 
+    elementId : 'example',
+    text: 'hello world!',
+    font : 'demo/fonts/c64.bdf',
+    style : 'squares',
+    scale: '6',
+    fill: "#66f",
+    stroke: "black"
+  });
+  </script></xmp></pre>
+     which results in this:<br />
     </p>
 
     <div class='example'>
-      <canvas></canvas>
+      <canvas id='example'></canvas>
       <script>
-      PixelText($("canvas") , { 
+      Pxxl({ 
+        elementId : 'example',
         text: 'hello world!',
         font : 'demo/fonts/c64.bdf',
         style : 'squares',
-        scale: '10',
+        scale: '6',
         fill: "#66f",
         stroke: "black"
       });
@@ -91,7 +94,7 @@
 
     <h2>Download</h2>
     <p>
-      Download just the <a href="demo/pxxl-0.1.min.js">pxxl-0.1.min.js</a> script.
+      All you need to get started is <a href="demo/pxxl-0.2.min.js">Pxxl.js</a> and <a href="fonts.zip">these bitmap fonts</a>.
     </p>
     <p>
       Or you can download the whole project in either
