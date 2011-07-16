@@ -1,20 +1,20 @@
+testpage:
+  - fix colorpicker not triggering update in IE9
+  - no canvas msg
+  
 github page
-
-  - logo
+  - add license
   - example shots
     - zoomed in on 'pixels'
     
   - intro
-  - usage instructions
   - call for more fonts
   - favicon
-  - analytics
-  - webmaster tools
+  - webmaster tools?
 
-testpage tuning:
-  - no canvas msg
-
-update testpage  
+update testpage 
+  - merge demo into dev branch
+  - candy: circles in random colors
   - charactermap
   - new Style: unicode character
   - vibrating circles

@@ -2,9 +2,9 @@ import sys,os, glob, commands
 
 TARGET=sys.argv[1]
 
-files = ["js/Pxxl.js", "../lib/jsparse.js", "../lib/my.class.min.js", "js/font.js", "js/font.glyph.js", "js/font.loader.js", "js/parser.js",  "js/styles/squares.js", "js/styles/blocks.js", "js/styles/circles.js"]
+files = ["Pxxl.js", "lib/jsparse.js", "lib/my.class.min.js", "font.js", "font.glyph.js", "font.loader.js", "parser.js",  "styles/squares.js", "styles/blocks.js", "styles/circles.js"]
 
-JS = " ".join(["--js ../" + filename for filename in files ])
+JS = " ".join(["--js ../js/" + filename for filename in files ])
 
 # more externs:  http://code.google.com/p/closure-compiler/source/browse/#svn/trunk/contrib/externs
 externs = ["jquery-1.6.js"]
