@@ -1,15 +1,14 @@
-
-Font.Glyph = function (name, bitmap) {
+Pxxl.Glyph = function (name, bitmap) {
   //console.log("Glyph", name, bitmap);
   this.name = name;
   this.bitmap = bitmap;
 }
 
-Font.Glyph.ParseJSON = function (obj)
+Pxxl.Glyph.ParseJSON = function (obj)
 {
-  
+
   var g = new Font.Glyph(obj.name, obj.bitmap);
-  
+
   // shallow copy
   for (var k in obj)
   {
@@ -20,7 +19,7 @@ Font.Glyph.ParseJSON = function (obj)
   return g;
 }
 
-Font.Glyph.prototype = {
+Pxxl.Glyph.prototype = {
 
   set: function (x,y,value) {
     var bit = 1 << this.width() - x - 1;
@@ -28,12 +27,12 @@ Font.Glyph.prototype = {
     bit %= (byt+1) * 256;
 
     //console.log(this.bitmap);
-   
+
     if (value)
       this.bitmap[y][byt] |= bit;
     else
       this.bitmap[y][byt] &= ~bit;
-    
+
     //console.log(this.bitmap);
   },
 
@@ -41,18 +40,18 @@ Font.Glyph.prototype = {
     var bit = 1 << this.width() - x - 1;
     var byt = ~~(bit/256);
     bit %= (byt+1) * 256;
-    
+
     var result = this.bitmap[y][byt] & bit;
     //console.log("x:"+x, "y:"+y, "bit:"+bit, "byte:"+byte, "value:"+result );
     return !!result;
   },
 
-  width: function () 
+  width: function ()
   {
     return this.BBX[0];
   },
-  
-  height: function () 
+
+  height: function ()
   {
     return this.BBX[1];
   },

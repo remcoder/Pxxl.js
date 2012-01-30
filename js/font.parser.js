@@ -1,5 +1,5 @@
 (function() {
-  
+
 var EXCLAMATION_MARK = ch("!");
 var AT = ch("@");
 var HASH = ch("#");
@@ -97,25 +97,6 @@ var CommentRow = trace(pick(0, sequence(Comment, EOL)), "comment");
 
 var BDF = action(sequence( repeat0(CommentRow), FontStart, repeat0(CommentRow), repeat0(butnot(PropRow, GlyphStart)), repeat0(Glyph), FontEnd), MakeFont); // empty container is allowed
 
-Font.ParseBDF = function (input, trace, traceall)
-{
-  Font.trace = trace;
-  Font.traceall = traceall;
-  
-  input = pre(input);
-  var state = ps(input);
-  var before = +new Date;
-  var result = BDF(state);
-  var time = +new Date - before;
-  
-  if (result.ast) {
-    console.log("parsing took: " + time + "ms");
-    return result.ast;
-  }
-  
-  throw new Error("Unable to parse font!");
-}
-
 // input: sequence( FontStart, repeat0(CommentRow), repeat0(butnot(PropRow, GlyphStart)), repeat0(Glyph), FontEnd)
 function MakeFont(ast)
 {
@@ -123,7 +104,7 @@ function MakeFont(ast)
   var comments = ast[0].concat(ast[2]);
   var properties = ast[3];
   var glyphs = PropertyList2Hash(ast[4]);
-  var f = new Font(formatVersion, comments, properties, glyphs);
+  var f = new Pxxl.Font(formatVersion, comments, properties, glyphs);
   return PropertyBagMixin(f, properties);
 }
 
@@ -133,7 +114,7 @@ function MakeGlyph(ast)
   var name = ast[0];
   var properties = ast[1];
   var bitmap = ast[2];
-  var g =  new Font.Glyph(name, bitmap); 
+  var g =  new Pxxl.Glyph(name, bitmap);
   //console.log("glyph", g.toString());
   g = PropertyBagMixin(g, properties);
   return { name: g["ENCODING"], value :g};
@@ -144,37 +125,37 @@ function PropertyBagMixin(obj, proplist)
   for( var i=0 ; i<proplist.length ; i++ )
   {
     var prop = proplist[i];
-    
+
     // WATCH OUT! possibly overwriting pre-existing properties!
     obj[prop.name] = prop.value
   }
-  
+
   return obj;
 }
 
 function PropertyList2Hash(proplist)
 {
   var hash = {};
-  
+
   for( var i=0 ; i<proplist.length ; i++ )
   {
     var prop = proplist[i];
-    
+
     // WATCH OUT! possibly overwriting pre-existing properties!
     hash[prop.name] = prop.value
   }
-  
+
   return hash;
 }
 
 function MakeProp1(ast)
-{ 
+{
   var value = ast[1];
   var name = ast[0];
-  
+
   if (name == "ENCODING" || name == "CHARS")
     value = value[0];
-    
+
   return { name: name, value: value };
 }
 
@@ -194,11 +175,11 @@ function pick(i, p) {
 
 function trace(p, label)
 {
-  var traceon = Font.trace;
-  var traceall = Font.traceall;
-  
+  var traceon = Pxxl.trace;
+  var traceall = Pxxl.traceall;
+
   if (!traceon) return p;
-  
+
   return function(state) {
     var result = p(state);
     if (!result.ast)
@@ -207,10 +188,10 @@ function trace(p, label)
       var lines = matched.split("\n");
       //lines[lines.length-1]
       console.error(label, "failed at line", lines.length, state);
-    } 
+    }
     if (result.ast && traceall)
       console.log(label, "matches", result.matched, "\nAST:", result.ast);
-    
+
     return result;
   }
 }
@@ -220,18 +201,37 @@ function pre(input) {
   for (var l=lines.length-1 ; l>=0 ; l--)
   {
     var line = ltrim(lines[l]);
-    
+
     if (line == "")
       lines.splice(l, 1);
     else
       lines[l] = line;
   }
-  
+
   return lines.join("\n");
 }
 
 function ltrim(stringToTrim) {
 	return stringToTrim.replace(/^\s+/,"");
+}
+
+Pxxl.Font.ParseBDF = function (input, trace, traceall)
+{
+  Pxxl.trace = trace;
+  Pxxl.traceall = traceall;
+
+  input = pre(input);
+  var state = ps(input);
+  var before = +new Date;
+  var result = BDF(state);
+  var time = +new Date - before;
+
+  if (result.ast) {
+    //console.log("parsing took: " + time + "ms");
+    return result.ast;
+  }
+
+  throw new Error("Unable to parse font!");
 }
 
 })();

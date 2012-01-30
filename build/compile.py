@@ -2,7 +2,7 @@ import sys,os, glob, commands
 
 TARGET=sys.argv[1]
 
-files = ["Pxxl.js", "lib/jsparse.js", "lib/my.class.min.js", "font.js", "font.glyph.js", "font.loader.js", "parser.js",  "styles/squares.js", "styles/blocks.js", "styles/circles.js"]
+files = ["lib/jsparse.js", "font.js", "font.glyph.js", "font.loader.js", "font.parser.js", "utils.js"]
 
 JS = " ".join(["--js ../js/" + filename for filename in files ])
 
@@ -26,5 +26,5 @@ print cmd
 
 if os.path.exists(TARGET):
   os.remove(TARGET)
-  
+
 os.system(cmd)
