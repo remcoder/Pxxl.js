@@ -7,8 +7,8 @@ html, body {
 body {
   text-align: center;
   margin: 0;
-  color: #FF1492;
-  background-color: #fff;
+  xcolor: #FF1492;
+  background-color: #eee;
   xtext-shadow: white 0px 0px 20px;
   font-family: Arial;
   xoverflow: hidden;
@@ -24,11 +24,10 @@ a
 
 pre
 {
-  color: #ccc;
+  color: #bbb;
   font-size: 120%;
   text-align: left;
   line-height: 16px;
-  xbackground-color: #000;
   padding: 5px;
   border-radius: 5px;
   margin: auto;
@@ -36,25 +35,34 @@ pre
   text-align:left;
 }
 
-.footer
+.ribbon
 {
   position: fixed;
-  bottom: 0;
+
   xleft: 15px;
   xmargin: auto;
   height: 22px;
   font-style: italic;
   width: 100%;
-  background-color: rgba(10,100,100,0.8);
+  background-color: rgba(0,0,0,0.8); rgba(10,100,100,0.8);
   text-align: left;
   padding-top: 5px;
   padding-left: 15px;
 
   color: white;
 }
-.footer .right {
+
+.ribbon .right {
   float: right;
   margin-right: 30px;
+}
+
+.footer {
+  bottom: 0;
+}
+
+.header {
+  top:0;
 }
 
 
