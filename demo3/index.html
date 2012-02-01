@@ -22,55 +22,89 @@
     <script src="../build/pxxl-0.3.min.js" type="text/javascript"></script>
 
     <script type="text/javascript" id="code">
-function rgba(r,g,b,a) { return "rgba("+ ~~r +","+ ~~g +","+ ~~b +"," + a +")"; }
-function randomColor() { return rgba(255*Math.random(),
-  255*Math.random(), 255*Math.random(),1) }
 
+var stage = document.querySelector("#stage");
+
+pxxl("../fonts/c64.bdf", "Cubes!", function (pixels) {
+  var shape = new Shape(stage);
+
+  var cubes = [];
+
+  for (var p=0 ; p<pixels.length ; p++) {
+    var pixel = pixels[p];
+    var cube = new Cube(shape, { size: 24, x: pixel.x, y: pixel.y });
+    cubes.push(cube);
+  }
+
+  // setTimeout(function () {
+  //   shape.el.classList.add("rotate-x");
+  // },400);
+
+
+  setTimeout(function () { shape.el.classList.add("rotate-y"); animate(cubes);},400);
+  explode(cubes);
+
+});
+
+// just set the transformation once every couple of seconds. css transitions will do the rest
+function animate(cubes) {
+  makeLetters(cubes);
+  setTimeout(function() {
+    explode(cubes);
+    setTimeout(function() { animate(cubes); }, 3000);
+  }, 6000);
+}
+
+function r(factor) { return (Math.random()-0.5) * factor; };
 function translate3d(x,y,z) { return "translate3d("+x+"px,"+y+"px,"+z+"px)";}
-function rotate3d(a,b,c) { return "rotate3d("+a+"deg,"+b+"deg,"+c+"deg)";}
-var i = 0;
+
 function Side(cube, which, options) {
-  var el = document.createElement("div");
-  el.classList.add("side");
-  el.classList.add(which);
-  el.style.width = el.style.height = options.size + "px";
-  el.style.backgroundColor = "hsla(" + Math.abs((i++ % 510) - 255) + ",100%,50%,1)";
-  el.style.border = "1px solid black";
-  cube.el.appendChild(el);
+  this.el = document.createElement("div");
+  this.el.classList.add("shape");
+
+  this.el.style.width = this.el.style.height = options.size + "px";
+  var h = 250 + (Math.random()-0.5) * 100;
+  this.el.style.backgroundColor = "hsla("+h+",100%,50%,0.5)";
+  this.el.style.border = "1px solid black";
+  cube.el.appendChild(this.el);
 
   var t = 0.5* options.size;
 
   switch(which)
   {
     case "front":
-      el.style.webkitTransform = translate3d(0,0,t);
+      this.el.style.webkitTransform = translate3d(0,0,t);
       break;
     case "right":
-      el.style.webkitTransform = translate3d(t,0,0) + "rotateY(90deg)";
+      this.el.style.webkitTransform = translate3d(t,0,0) + "rotateY(90deg)";
       break;
     case "top":
-      el.style.webkitTransform = translate3d(0,t,0) + "rotateX(-90deg)";
+      this.el.style.webkitTransform = translate3d(0,t,0) + "rotateX(-90deg)";
       break;
     case "back":
-      el.style.webkitTransform = translate3d(0,0,-t) + "rotateX(180deg)";
+      this.el.style.webkitTransform = translate3d(0,0,-t) + "rotateX(180deg)";
       break;
     case "left":
-      el.style.webkitTransform = translate3d(-t,0,0) + "rotateY(-90deg)";
+      this.el.style.webkitTransform = translate3d(-t,0,0) + "rotateY(-90deg)";
       break;
     case "bottom":
-      el.style.webkitTransform = translate3d(0,-t,0) + "rotateX(90deg)";
+      this.el.style.webkitTransform = translate3d(0,-t,0) + "rotateX(90deg)";
       break;
   }
 }
 
 function Cube(shape, options) {
 
-  var el = this.el = document.createElement("div");
-  var x = options.size * options.x;
-  var y = options.size * options.y;
-  el.style.webkitTransform = "translate3d("+x+"px,"+y+"px,0)";
-  el.style.width = el.style.height = options.size + "px";
-  el.className = "cube";
+  this.el = document.createElement("div");
+  this.el.classList.add("shape");
+
+  this.size = options.size;
+  this.x = options.x;
+  this.y = options.y;
+
+  this.el.style.width = this.el.style.height = options.size + "px";
+
+
 
   new Side(this, "front", options);
   new Side(this, "left", options);
@@ -80,24 +114,44 @@ function Cube(shape, options) {
   new Side(this, "bottom", options);
   new Side(this, "back", options);
 
-  shape.el.appendChild(el);
+  shape.el.appendChild(this.el);
 }
 
-pxxl("../fonts/c64.bdf", "3D CSS", function (pixels) {
-  var scale = 8;
-  var stage = document.querySelector("#stage");
-  var shape = { el: document.createElement("div") };
-  shape.el.classList.add("shape");
-  stage.appendChild(shape.el);
+Cube.prototype.setTransform = function (x,y,z) {
+  this.el.style.webkitTransform = translate3d(x,y,z);
+}
 
+function Shape(stage) {
+  this.el = document.createElement("div");
+  this.el.classList.add("shape");
+  stage.appendChild(this.el);
+}
 
-  for (var p=0 ; p<pixels.length ; p++) {
-    var pixel = pixels[p];
+function makeLetters(cubes) {
+  for (var p=0 ; p<cubes.length ; p++) {
+
+    var cube = cubes[p];
     var dx = -4*6;
     var dy = -4;
-    var cube = new Cube(shape, { size: 16, x: dx+pixel.x, y: dy+pixel.y });
+
+    var x = cube.size * (dx+cube.x);
+    var y = cube.size * (dy+cube.y);
+    cube.el.style.webkitTransition = "-webkit-transform 2s ease-in";
+    cube.setTransform(x,y,0);
   }
-});
+}
+
+function explode(cubes) {
+  for (var p=0 ; p<cubes.length ; p++) {
+
+    var cube = cubes[p];
+
+    cube.el.style.webkitTransition = "-webkit-transform 2s ease-out";
+    cube.setTransform(r(1000), r(1000), r(1000));
+  }
+}
+
+
     </script>
     <script>
      document.querySelector("pre").innerText = document.getElementById("code").innerText;
