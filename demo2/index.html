@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=9,chrome=1">
+    <title>Pxxl.js demopage</title>
+    <link rel="stylesheet" href="demo.css">
+  </head>
+  <body>
+
+  <canvas class="demo"></canvas>
+
+  <div class="footer">
+   see the <a href="https://github.com/remcoder/Pxxl.js">Pxxl.js Github repo</a> for tha codez
+   <span class="right">&copy; 2012 <a href="http://twitter.com/remcoder">@remcoder</a></span>
+  </div>
+
+
+  <pre class="code"></pre>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+    <script src="../build/pxxl-0.3.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" id="code">
+function rgba(r,g,b,a) { return "rgba("+ ~~r +","+ ~~g +","+ ~~b +"," + a +")"; }
+function randomColor() { return rgba(255*Math.random(),
+  255*Math.random(), 255*Math.random(),1) }
+
+
+
+pxxl("../fonts/c64.bdf", "leds are cool", function (pixels) {
+    console.log("font loaded");
+    var canvas = document.querySelector("canvas");
+    canvas.width = innerWidth;
+
+    var ctx = canvas.getContext('2d');
+    var size = 10;
+    canvas.height = size*8;
+    ctx.fillStyle = "red";
+    var dx = 0;
+
+    setInterval(function() {
+      ctx.fillStyle = "rgba(0,0,0,0.4)";
+      ctx.fillRect(0,0,canvas.width, canvas.height);
+      ctx.fillStyle = "red";
+      for (var i=0 ; i<pixels.length ; i++)
+      {
+        //console.log("pixel",p);
+        var p = pixels[i];
+
+        var x = dx + p.x * size;
+        x %= canvas.width;
+        x += canvas.width;
+        var y = p.y * size;
+        ctx.beginPath();
+        ctx.arc(x, y, size/2, 0, Math.PI*2, true);
+        ctx.closePath();
+        ctx.fill();
+      }
+      dx-=size;
+    }, 100);
+});
+    </script>
+    <script>
+     document.querySelector("pre").innerText = document.getElementById("code").innerText;
+    </script>
+  </body>
+</html>
