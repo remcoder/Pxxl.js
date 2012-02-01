@@ -21,7 +21,7 @@ function rgba(r,g,b,a) { return "rgba("+ ~~r +","+ ~~g +","+ ~~b +"," + a +")"; 
 function randomColor() { return rgba(255*Math.random(),
   255*Math.random(), 255*Math.random(),1) }
 
-pxxl("fonts/c64.bdf", "random colors...", function (pixels) {
+pxxl("../fonts/c64.bdf", "random colors...", function (pixels) {
   var scale = 8;
   ctx.clearRect(0,0,canvas.width,canvas.height);
   for (var p=0 ; p&lt;pixels.length ; p++) {

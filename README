@@ -1,12 +1,47 @@
-                             ##                   #           
-######                        #                   #           
-#     #                       #                               
-#     #  ##   ##  ##   ##     #                ####    #####  
-######     # #      # #       #                   #   #       
-#           #        #        #                   #    ####   
-#          # #      # #       #       ##          #        #  
-#        ##   ##  ##   ##    ###      ##          #   #####   
-                                                  #           
+                             ##                   #
+######                        #                   #
+#     #                       #
+#     #  ##   ##  ##   ##     #                ####    #####
+######     # #      # #       #                   #   #
+#           #        #        #                   #    ####
+#          # #      # #       #       ##          #        #
+#        ##   ##  ##   ##    ###      ##          #   #####
+                                                  #
                                               ####
 ==============================================================
 
+Usage
+=====
+
+There is 1 easy utility function 'pxxl()' which you can use in most simple scenarios.
+
+The 'pxxl' function requires 2 arguments:
+
+pxxl(<font-url>, <string>, <callback>)
+
+* font-url
+  - A url used to retrieve a font file via XHR. The font should be in the BDF format, which is an old text-based format for bitmap fonts.
+
+* string
+  - The message you would like you render.
+
+* callback (function(pixels) {} )
+  - The callback you need to pass to do the actual rendering. It's input argument 'pixels' is an array of pixels, which are objects with x and y coordinates as properties:
+  pixel : { x: Number , y: Number }
+
+You can render the pixel info any way you like. You can:
+  - plot them to a canvas
+  - create a absolutely positioned divs for every pixel or
+  - use WebGL
+  - etc
+
+// code example
+pxxl("fonts/c64.bdf", "random colors...", function (pixels) {
+
+  for (var p=0 ; p<pixels.length ; p++) {
+    var pixel = pixels[p];
+
+    // use pixel information to draw letters
+  }
+
+});
