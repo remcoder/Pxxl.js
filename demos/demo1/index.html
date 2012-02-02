@@ -8,8 +8,17 @@
   <body>
   <canvas width="900"></canvas>
 
-  <div class="footer">
-   see the <a href="https://github.com/remcoder/Pxxl.js">Pxxl.js Github repo</a> for tha codez
+  <div class="ribbon header">
+    <span class="title">hello world canvas example</span>
+    <span class="right">
+      see the <a href="https://github.com/remcoder/Pxxl.js">Pxxl.js Github repo</a> for tha codez
+    </span>
+  </div>
+
+  <div class="ribbon footer">
+    <a href="https://realstuffforabstractpeople.com">realstuffforabstractpeople.com</a>
+
+   <span class="right">&copy; 2012 <a href="http://twitter.com/remcoder">@remcoder</a></span>
   </div>
 
 
@@ -30,13 +39,17 @@ function rgba(r,g,b,a) { return "rgba("+ ~~r +","+ ~~g +","+ ~~b +"," + a +")"; 
 function randomColor() { return rgba(255*Math.random(),
   255*Math.random(), 255*Math.random(),1) }
 
-pxxl("../../fonts/c64d.bdf", "random colors...", function (pixels) {
-  var scale = 4;
+pxxl("../../fonts/c64d.bdf", "hello world", function (pixels) {
+  var scale = 5;
   ctx.clearRect(0,0,canvas.width,canvas.height);
+  var hue = 100;
+  canvas.height = 16 * scale;
+
   for (var p=0 ; p<pixels.length ; p++) {
     var pixel = pixels[p];
-    ctx.fillStyle = randomColor();
 
+    ctx.fillStyle = "hsla("+hue+",100%,50%,1)";
+    hue++;
     ctx.fillRect(pixel.x*scale, pixel.y*scale, scale, scale)
   }
 });
