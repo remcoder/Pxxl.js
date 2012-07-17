@@ -1,0 +1,108 @@
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  text-align: center;
+  margin: 0;
+  xcolor: #FF1492;
+  background-color: #eee;
+  xtext-shadow: white 0px 0px 20px;
+  font-family: Arial;
+  xoverflow: hidden;
+}
+h1
+{
+  text-shadow: white 0px 0px 100px;
+}
+a
+{
+  color: white;
+}
+
+pre
+{
+  color: #bbb;
+  font-size: 120%;
+  text-align: left;
+  line-height: 16px;
+  padding: 5px;
+  border-radius: 5px;
+  margin: auto;
+  display: inline-block;
+  text-align:left;
+}
+
+.ribbon
+{
+  position: fixed;
+
+  xleft: 15px;
+  xmargin: auto;
+  height: 22px;
+  font-style: italic;
+  width: 100%;
+  background-color: rgba(0,0,0,0.8); rgba(10,100,100,0.8);
+  text-align: left;
+  padding-top: 5px;
+  padding-left: 15px;
+
+  color: white;
+}
+
+.ribbon .title {
+  font-weight: bold;
+}
+
+.ribbon .right {
+  float: right;
+  margin-right: 30px;
+}
+
+.footer {
+  bottom: 0;
+}
+
+.header {
+  top:0;
+}
+
+
+
+.stage {
+  -webkit-transform-style: preserve-3d;
+  -webkit-perspective: 1200;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1; /* ontop of the ribbons */
+}
+
+.shape {
+  position: absolute;
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+}
+
+@-webkit-keyframes rotateY {
+  from { -webkit-transform: rotate3d(0,1,0,0deg); }
+  50%  { -webkit-transform: rotate3d(0,1,0,180deg); }
+  to   { -webkit-transform: rotate3d(0,1,0,360deg); }
+}
+
+@-webkit-keyframes rotateX {
+  from { -webkit-transform: rotateX(0); }
+  to   { -webkit-transform: rotateX(-360deg); }
+}
+
+.rotate-x {
+  -webkit-animation: rotateX 0.5s 1 linear;
+}
+
+.rotate-y {
+  -webkit-animation: rotateY 3s infinite linear;
+}
+

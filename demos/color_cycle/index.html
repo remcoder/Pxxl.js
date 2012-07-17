@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=9,chrome=1">
+    <title>Pxxl.js demopage</title>
+    <link rel="stylesheet" href="demo.css">
+  </head>
+  <body>
+  <canvas width="900"></canvas>
+
+  <div class="ribbon header">
+    <span class="title">hello world canvas example</span>
+    <span class="right">
+      see the <a href="https://github.com/remcoder/Pxxl.js">Pxxl.js Github repo</a> for tha codez
+    </span>
+  </div>
+
+  <div class="ribbon footer">
+    <a href="https://realstuffforabstractpeople.com">realstuffforabstractpeople.com</a>
+
+   <span class="right">&copy; 2012 <a href="http://twitter.com/remcoder">@remcoder</a></span>
+  </div>
+
+
+  <pre class="code">
+
+  </pre>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+    <script src="pxxl-0.3.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript" id="code">
+
+
+pxxl("../../fonts/c64d.bdf", "color cycle", function (pixels) {
+  var canvas = document.querySelector('canvas'),
+    ctx = canvas.getContext('2d'),
+    scale = 5;
+
+  canvas.height = 16 * scale;
+  ctx.scale(scale,scale);
+  ctx.lineWidth = 0.2;
+
+  setInterval(function() {
+    var count =0;
+    for (var p=0 ; p<pixels.length ; p++) {
+      var pixel = pixels[p];
+      var hue = (count + Math.floor(new Date/10) ) % 360;
+      ctx.fillStyle = "hsl("+ hue +",100%,50%)";
+      count++;
+      ctx.fillRect(pixel.x, pixel.y, 1, 1);
+      ctx.strokeRect(pixel.x, pixel.y, 1, 1);
+    }
+  },100);
+  
+});
+    </script>
+    <script>
+      document.querySelector("pre").innerText = document.getElementById("code").innerText;
+    </script>
+  </body>
+</html>

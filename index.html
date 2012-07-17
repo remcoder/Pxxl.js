@@ -30,8 +30,10 @@
     .footer { text-align:center; padding-top:30px; font-style: italic; }
     .example { text-align: center; background-color: #222; border-radius: 5px; }
   </style>
+  <link rel="stylesheet" href="highlight.css">
+  <link rel="stylesheet" href="monokai.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
-  <script src="demo/pxxl-0.2.min.js" type="text/javascript"></script>
+  
 </head>
 
 <body>
@@ -39,62 +41,43 @@
 
   <div id="container">
 
-    <h1><a href="http://github.com/remcoder/Pxxl.js"><img src="title.png" alt="pxxl.js"></a>
-      <!-- <span class="small">by <a href="http://github.com/remcoder">remcoder</a></span> --></h1>
+    <h1>
+      <!-- <a href="http://github.com/remcoder/Pxxl.js"><img src="title.png" alt="pxxl.js"></a> -->
+      <canvas id='c' width='700' height='96'></canvas>
+    </h1>
 
-    <div class="description">
-      HTML5 Canvas utility to render texts in retro style and more.
-    </div>
-    
-    <h2>Get Started</h2>
+    <p class='description'>Create pixel info from any text so you can render characters yourself, anyway you want.</p>
+
+    <h2>example code</h2>
+    <p>This is the code used to generate the header on this page.</p>
+    <pre class="example-code javascript">
+      <code></code>
+    </pre>
+
+    <h2>More examples</h2>
     <p>
+      <a href="demos/css3d">3D css</a>
+    </p>
+    <p>
+      <a href="demos/leds">LEDs</a>
+    </p>
+    <p>
+      <a href="demos/color_cycle">color cycling</a>
+    </p>
+    
+
+    <h2>Dependencies</h2>
+    <p>
+      You'll need:
       <ol>
-        <li>include the <a href="demo/pxxl-0.2.min.js">pxxl-0.2.min.js</a> script.</li>
-        <li>include <a href="http://docs.jquery.com/Downloading_jQuery">JQuery</a> (this dependency should be removed soon)</li>
-        <li>put <a href="fonts.zip">these bitmap fonts</a> in your www directory</li>
+        <li><a href="http://docs.jquery.com/Downloading_jQuery">JQuery</a> (this dependency should be removed eventually)</li>
+        <li><a href="fonts.zip">these bitmap fonts</a>. Put them in your www directory.</li>
       </ol>
     </p>
 
-    <p>To get started immediately, create a <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html">canvas</a> element and just call the 'Pxxl' function:
-    <pre class="example-code"><xmp>
-  <canvas id='example'></canvas>
-  <script>
-  Pxxl({ 
-    elementId : 'example',
-    text: 'hello world!',
-    font : 'demo/fonts/c64.bdf',
-    style : 'squares',
-    scale: '6',
-    fill: "#66f",
-    stroke: "black"
-  });
-  </script></xmp></pre>
-     which results in this:<br />
-    </p>
-
-    <div class='example'>
-      <canvas id='example'></canvas>
-      <script>
-      Pxxl({ 
-        elementId : 'example',
-        text: 'hello world!',
-        font : 'demo/fonts/c64.bdf',
-        style : 'squares',
-        scale: '6',
-        fill: "#66f",
-        stroke: "black"
-      });
-      </script>
-    </div>
-
-    <h2>Demo</h2>
-    <div>
-      Try the <a href="demo/">demo</a> to see more capabilies like retro-style pseudo 3d rendering!
-    </div>
-
     <h2>Download</h2>
     <p>
-      All you need to get started is <a href="demo/pxxl-0.2.min.js">Pxxl.js</a> and <a href="fonts.zip">these bitmap fonts</a>.
+      All you need to get started is <a href="demo/pxxl-0.3.min.js">Pxxl.js</a> and <a href="fonts.zip">these bitmap fonts</a>.
     </p>
     <p>
       Or you can download the whole project in either
@@ -118,6 +101,30 @@
     </div>
 
   </div>
+  <script src="pxxl-0.3.min.js" type="text/javascript"></script>
+  <script id='code'>pxxl("fonts/c64d.bdf", "Pxxl.js", function (pixels) {
+  var canvas = document.getElementById('c'),
+    ctx = canvas.getContext('2d');
+
+  var hue = 0;
+  for (var p=0 ; p<pixels.length ; p++) {
+    var pixel = pixels[p];
+    var x = pixel.x*6;
+    var y = pixel.y*6;
+    ctx.fillStyle = "hsl("+ hue +",100%,50%)";
+    hue++;
+    ctx.fillRect(x,y, 6, 6);
+    ctx.strokeRect(x,y, 6, 6);
+  }
+});</script>
+    <script>
+      document.querySelector("code").innerText = document.getElementById("code").innerText;
+    </script>
+    <script src='highlight.pack.js'></script>
+    <script>
+  hljs.tabReplace = '    ';
+  hljs.initHighlightingOnLoad();
+  </script>
   <script type="text/javascript">
 
     var _gaq = _gaq || [];
