@@ -4,6 +4,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=9,chrome=1">
     <title>Pxxl.js demopage</title>
     <link rel="stylesheet" href="demo.css">
+    <link rel="stylesheet" href="../highlight.css">
+    <!-- <link rel="stylesheet" href="../monokai.css"> -->
   </head>
   <body>
 
@@ -21,7 +23,9 @@
   </div>
 
 
-  <pre class="code"></pre>
+  <pre class="code">
+    <code></code>
+  </pre>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src="modernizr.js"></script>
@@ -196,8 +200,13 @@ function explode(cubes) {
 
 
     </script>
-    <script>
-      document.querySelector("pre").innerText = document.getElementById("code").innerText;
-    </script>
+    
+  <script src='../highlight.pack.js'></script>
+  <script>
+    $("code").text($("#code").text());
+    hljs.tabReplace = '  ';
+    hljs.initHighlightingOnLoad();
+  </script>
+
   </body>
 </html>

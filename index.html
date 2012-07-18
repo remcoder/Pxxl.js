@@ -62,7 +62,7 @@
       <a href="demos/leds">LEDs</a>
     </p>
     <p>
-      <a href="demos/color_cycle">color cycling</a>
+      <a href="demos/helloworld">color cycling</a>
     </p>
     
 
@@ -120,13 +120,11 @@
     ctx.strokeRect(x,y, 6, 6);
   }
 });</script>
-    <script>
-      document.querySelector("code").innerText = document.getElementById("code").innerText;
-    </script>
-    <script src='highlight.pack.js'></script>
-    <script>
-  hljs.tabReplace = '    ';
-  hljs.initHighlightingOnLoad();
+  <script src='highlight.pack.js'></script>
+  <script>
+    $("code").text($("#code").text());
+    hljs.tabReplace = '  ';
+    hljs.initHighlightingOnLoad();
   </script>
   <script type="text/javascript">
 

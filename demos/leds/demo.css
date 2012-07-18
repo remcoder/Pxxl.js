@@ -33,6 +33,8 @@
       margin: auto;
       display: inline-block;
       text-align:left;
+      opacity: 0.6;
+      z-index: -1;
     }
 
     .ribbon
@@ -70,6 +72,7 @@
     .demo
     {
       position: fixed;
+      z-index:1;
       left:0;
       width: 100%;
       opacity: 0.8;
