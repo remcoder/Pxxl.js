@@ -74,6 +74,8 @@ pre
 .stage {
   -webkit-transform-style: preserve-3d;
   -webkit-perspective: 1200;
+  -moz-transform-style: preserve-3d;
+  -moz-perspective: 1200;
 
   position: fixed;
   top: 50%;
@@ -85,6 +87,8 @@ pre
   position: absolute;
   -webkit-transform-style: preserve-3d;
   -webkit-backface-visibility: hidden;
+  -moz-transform-style: preserve-3d;
+  -moz-backface-visibility: hidden;
 }
 
 @-webkit-keyframes rotateY {
@@ -98,11 +102,24 @@ pre
   to   { -webkit-transform: rotateX(-360deg); }
 }
 
+@-moz-keyframes rotateY {
+  from { -moz-transform: rotate3d(0,1,0,0deg); }
+  50%  { -moz-transform: rotate3d(0,1,0,180deg); }
+  to   { -moz-transform: rotate3d(0,1,0,360deg); }
+}
+
+@-moz-keyframes rotateX {
+  from { -moz-transform: rotateX(0); }
+  to   { -moz-transform: rotateX(-360deg); }
+}
+
 .rotate-x {
   -webkit-animation: rotateX 0.5s 1 linear;
+  -moz-animation: rotateX 0.5s 1 linear;
 }
 
 .rotate-y {
   -webkit-animation: rotateY 3s infinite linear;
+  -moz-animation: rotateY 3s infinite linear;
 }
 

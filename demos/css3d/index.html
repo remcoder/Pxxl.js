@@ -24,12 +24,14 @@
   <pre class="code"></pre>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-
+    <script src="modernizr.js"></script>
     <script src="pxxl-0.3.min.js" type="text/javascript"></script>
 
     <script type="text/javascript" id="code">
 
 var stage = document.querySelector("#stage");
+var TRANSFORM = Modernizr.prefixed("transform");
+var TRANSITION = Modernizr.prefixed("transition");
 
 // load the c64 pixel font and use it to render a string to pixel coordinates
 pxxl("../../fonts/c64.bdf", "Cubes!", function (pixels) {
@@ -71,6 +73,16 @@ function animate(cubes) {
 // return a random number between [-factor/2,factor/2]
 function r(factor) { return (Math.random()-0.5) * factor; };
 
+function transition(prop, duration, timingFunc)
+{
+  // see: http://modernizr.com/docs/#prefixed
+  var prefixed = Modernizr.prefixed(prop),
+    hyphenated = prefixed.replace(/([A-Z])/g, function(str,m1){ 
+      return '-' + m1.toLowerCase();
+    }).replace(/^ms-/,'-ms-');
+  return hyphenated + " " + duration + " " + timingFunc;
+}
+
 // returns a transformation string
 function translate3d(x,y,z) { return "translate3d("+x+"px,"+y+"px,"+z+"px)";}
 
@@ -98,22 +110,22 @@ function Side(cube, which, options) {
   switch(which)
   {
     case "front":
-      this.el.style.webkitTransform = translate3d(0,0,t);
+      this.el.style[TRANSFORM] = translate3d(0,0,t);
       break;
     case "right":
-      this.el.style.webkitTransform = translate3d(t,0,0) + rotateY(90);
+      this.el.style[TRANSFORM] = translate3d(t,0,0) + rotateY(90);
       break;
     case "top":
-      this.el.style.webkitTransform = translate3d(0,t,0) + rotateX(-90);
+      this.el.style[TRANSFORM] = translate3d(0,t,0) + rotateX(-90);
       break;
     case "back":
-      this.el.style.webkitTransform = translate3d(0,0,-t) + rotateX(180);
+      this.el.style[TRANSFORM] = translate3d(0,0,-t) + rotateX(180);
       break;
     case "left":
-      this.el.style.webkitTransform = translate3d(-t,0,0) + rotateY(-90);
+      this.el.style[TRANSFORM] = translate3d(-t,0,0) + rotateY(-90);
       break;
     case "bottom":
-      this.el.style.webkitTransform = translate3d(0,-t,0) + rotateX(90);
+      this.el.style[TRANSFORM] = translate3d(0,-t,0) + rotateX(90);
       break;
   }
 }
@@ -145,7 +157,7 @@ function Cube(shape, options) {
 }
 
 Cube.prototype.translate3d = function (x,y,z) {
-  this.el.style.webkitTransform = translate3d(x,y,z);
+  this.el.style[TRANSFORM] = translate3d(x,y,z);
 }
 
 // a container for cubes. creates a DOM element with 3d perspective enabled
@@ -165,7 +177,7 @@ function makeLetters(cubes) {
 
     var x = cube.size * (dx+cube.x);
     var y = cube.size * (dy+cube.y);
-    cube.el.style.webkitTransition = "-webkit-transform 2s ease-in";
+    cube.el.style[TRANSITION] = transition("transform", "2s", "ease-in"); //"-webkit-transform 2s ease-in";
     cube.translate3d(x,y,0);
   }
 }
@@ -176,8 +188,8 @@ function explode(cubes) {
 
     var cube = cubes[p];
 
-    cube.el.style.webkitTransition = "-webkit-transform 2s ease-out";
-    cube.el.style.webkitTransform = translate3d(r(1000), r(1000), r(1000))
+    cube.el.style[TRANSITION] = transition("transform", "2s", "ease-out"); //"-webkit-transform 2s ease-out";
+    cube.el.style[TRANSFORM] = translate3d(r(1000), r(1000), r(1000))
       + rotate3d(r(2), r(2), r(2), 180);
   }
 }
