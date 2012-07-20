@@ -1,21 +1,7 @@
-body {
-  color: #FF1492;
-  background-color: #000;
+#demo {
+  position:static;;
 }
-
-pre {
-  color: #aaa;
-  background-color: #000;
-}
-
 canvas {
   margin-top: 60px;
   margin-bottom: 20px;
 }
-
-.ribbon {
-  background-color: rgba(10,100,100,0.8);
-  color: white;
-}
-
-

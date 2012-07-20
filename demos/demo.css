@@ -30,6 +30,11 @@ pre {
   text-align:left;
 }
 
+.demo {
+  position: fixed;
+  z-index: 1;
+}
+
 .ribbon {
   position: fixed;
 

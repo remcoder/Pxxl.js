@@ -7,19 +7,10 @@ pre {
   color: #ccc;
   background-color: #000;
   opacity: 0.6;
-  z-index: -1;
 }
 
 .ribbon {
   z-index:1;
   background-color: rgba(50,0,50,0.8);
   color: #eee;
-}
-
-.demo {
-  position: fixed;
-  z-index:1;
-  left:0;
-  width: 100%;
-  opacity: 0.8;
 }

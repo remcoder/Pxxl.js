@@ -1,0 +1,13 @@
+body {
+  background-color: #eee;
+}
+
+pre {
+  color: #bbb;
+  font-size: 120%;
+}
+
+.ribbon {
+  background-color: rgba(0,0,0,0.8); rgba(10,100,100,0.8);
+  color: white;
+}

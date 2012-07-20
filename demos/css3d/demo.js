@@ -1,48 +1,3 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=9,chrome=1">
-    <title>CSS Cubes! -- Pxxl.js</title>
-    <link rel="stylesheet" href="../demo.css">
-  
-    
-    
-    <link rel="stylesheet" href="demo.css">
-
-    <link rel="stylesheet" href="../highlight.css">
-    
-    
-  
-  </head>
-  <body>
-    <div id="demo" class="demo"></div>
-  <!-- <canvas class="demo" width="900" height="80"></canvas> -->
-
-  <div class="ribbon header">
-    <span class="title">CSS Cubes!</span>
-    <span class="right">
-      see the <a href="https://github.com/remcoder/Pxxl.js">Pxxl.js Github repo</a> for tha codez
-    </span>
-  </div>
-
-  <div class="ribbon footer">
-    <a href="https://realstuffforabstractpeople.com">realstuffforabstractpeople.com</a>
-
-   <span class="right">&copy; 2012 <a href="http://twitter.com/remcoder">@remcoder</a></span>
-  </div>
-
-
-  <pre class="code">
-    <code class="javascript">
-    </code>
-  </pre>
-
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript">
-  </script>
-  <script src="../modernizr.js"></script>
-  <script src="../pxxl-0.4.0.js" type="text/javascript"></script>
-
-    <script type="text/javascript" id="code">
 
 var stage = document.createElement("div");
 $(stage).addClass("stage");
@@ -210,13 +165,3 @@ function explode(cubes) {
       + rotate3d(r(2), r(2), r(2), 180);
   }
 }
-
-    </script>
-    <script src='../highlight.pack.js'></script>
-    <script>
-      $("code").text($("#code").text());
-      hljs.tabReplace = '  ';
-      hljs.initHighlightingOnLoad();
-    </script>
-  </body>
-</html>
