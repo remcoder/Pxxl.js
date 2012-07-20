@@ -20,13 +20,13 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         src: ['lib/**/*.js', 'js/**/*.js'],
-        dest: 'dist/<%= pkg.name %>_<%= pkg.version %>.js'
+        dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.js'
       }
     },
     min: {
       dist: {
         src: ['<config:concat.dist.dest>'],
-        dest: 'dist/<%= pkg.name %>_<%= pkg.version %>.min.js'
+        dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.min.js'
       }
     },
     watch: {
