@@ -656,83 +656,7 @@ function not(p) {
 
 
 
-var Pxxl = Pxxl || {};
-
-Pxxl.Glyph = function (name, bitmap) {
-  //console.log("Glyph", name, bitmap);
-  this.name = name;
-  this.bitmap = bitmap;
-}
-
-Pxxl.Glyph.ParseJSON = function (obj)
-{
-
-  var g = new Font.Glyph(obj.name, obj.bitmap);
-
-  // shallow copy
-  for (var k in obj)
-  {
-    if (obj.hasOwnProperty(k))
-      g[k] = obj[k];
-  }
-  //console.log("glyph", g.toString());
-  return g;
-}
-
-Pxxl.Glyph.prototype = {
-
-  set: function (x,y,value) {
-    var bit = 1 << this.width() - x - 1;
-    var byt = ~~(bit/256);
-    bit %= (byt+1) * 256;
-
-    //console.log(this.bitmap);
-
-    if (value)
-      this.bitmap[y][byt] |= bit;
-    else
-      this.bitmap[y][byt] &= ~bit;
-
-    //console.log(this.bitmap);
-  },
-
-  get: function (x,y) {
-    var bit = 1 << this.width() - x - 1;
-    var byt = ~~(bit/256);
-    bit %= (byt+1) * 256;
-
-    var result = this.bitmap[y][byt] & bit;
-    //console.log("x:"+x, "y:"+y, "bit:"+bit, "byte:"+byte, "value:"+result );
-    return !!result;
-  },
-
-  width: function ()
-  {
-    return this.BBX[0];
-  },
-
-  height: function ()
-  {
-    return this.BBX[1];
-  },
-
-  toString: function()
-  {
-    var result = "";
-    for (var y=0 ; y<this.bitmap.length ; y++)
-    {
-      for (var x=0 ; x<this.width() ; x++)
-      {
-        result += this.get(x,y) ? "*" : " ";
-      }
-      result += "/n"
-    }
-
-    return result;
-  }
-}
-
-var Pxxl = Pxxl || {};
+var Pxxl = {};
 
 Pxxl.Font = function(version, comments, properties, glyphs) {
   this.version = version;
@@ -743,27 +667,7 @@ Pxxl.Font = function(version, comments, properties, glyphs) {
   //console.log("BDF version " + this.version);
   // if (comments && comments.length)
   //   console.log(comments.join(""));
-}
-
-Pxxl.Font.ParseJSON = function (obj)
-{
-  var f = new Pxxl.Font(obj.version, obj.comments, obj.properties, {});
-  //console.log(f);
-  for (var k in obj)
-  {
-    if (obj.hasOwnProperty(k) && k != "glyphs")
-      f[k] = obj[k];
-  }
-
-  f.glyphs = {};
-  for (var g in obj.glyphs)
-  {
-    //console.log(g);
-    if (obj.glyphs.hasOwnProperty(g))
-      f.glyphs[g] = Font.Glyph.ParseJSON(obj.glyphs[g]);
-  }
-  return f;
-}
+};
 
 Pxxl.Font.prototype = {
 
@@ -771,20 +675,17 @@ Pxxl.Font.prototype = {
     return this.SIZE[0];
   },
 
-  getGlyph: function(character)
-  {
+  getGlyph: function(character) {
     var c = character.charCodeAt(0);
 
     return this.glyphs[c];
   },
 
-  defaultWidth: function ()
-  {
+  defaultWidth: function () {
     return this.FONTBOUNDINGBOX[0];
   },
 
-  defaultHeight: function ()
-  {
+  defaultHeight: function () {
     return this.FONTBOUNDINGBOX[1];
   },
 
@@ -849,51 +750,63 @@ Pxxl.Font.prototype = {
 };
 
 
-var Pxxl = Pxxl || {};
+Pxxl.Glyph = function (name, bitmap) {
+  //console.log("Glyph", name, bitmap);
+  this.name = name;
+  this.bitmap = bitmap;
+};
 
-(function() {
-  // FIXME: determine type based on mimetype and/or extension
-  var LoadFont = function LoadFont(url, callback) {
-    if(url.indexOf("json") > -1 )
-      $.getJSON(url, function(data) {
-        callback(Pxxl.Font.ParseJSON(data));
-      });
+Pxxl.Glyph.prototype = {
+
+  set: function (x,y,value) {
+    var bit = 1 << this.width() - x - 1;
+    var byt = ~~(bit/256);
+    bit %= (byt+1) * 256;
+
+    //console.log(this.bitmap);
+
+    if (value)
+      this.bitmap[y][byt] |= bit;
     else
-      $.get(url, function(data) {
-        callback(Pxxl.Font.ParseBDF(data));
-      }, 'text');
-  };
+      this.bitmap[y][byt] &= ~bit;
 
-  // memoization funcion for use with callbacks
-  function memoize2(f) {
-    var cache = {};
+    //console.log(this.bitmap);
+  },
 
-    return function (arg, callback) {
-      var cached = cache[arg];
+  get: function (x,y) {
+    var bit = 1 << this.width() - x - 1;
+    var byt = ~~(bit/256);
+    bit %= (byt+1) * 256;
 
-      if (typeof cached !== 'undefined')
+    var result = this.bitmap[y][byt] & bit;
+    //console.log("x:"+x, "y:"+y, "bit:"+bit, "byte:"+byte, "value:"+result );
+    return !!result;
+  },
+
+  width: function () {
+    return this.BBX[0];
+  },
+
+  height: function () {
+    return this.BBX[1];
+  },
+
+  toString: function() {
+    var result = "";
+    for (var y=0 ; y<this.bitmap.length ; y++)
+    {
+      for (var x=0 ; x<this.width() ; x++)
       {
-        //console.log('cache hit: ', arg);
-        return callback(cached);
+        result += this.get(x,y) ? "*" : " ";
       }
-      else
-      {
-        //console.log('cache miss:', arg);
-        return f(arg, function(result) {
-          cache[arg] = result;
-          return callback(result);
-        });
-      }
+      result += "/n";
     }
+
+    return result;
   }
+};
 
-  Pxxl.LoadFont = memoize2(LoadFont);
-
-})();
-
-var Pxxl = Pxxl || {};
-
-(function() {
+;(function() {
 
 var EXCLAMATION_MARK = ch("!");
 var AT = ch("@");
@@ -907,10 +820,10 @@ var LEFT_PARENTHESIS = ch("(");
 var RIGHT_PARENTHESIS = ch(")");
 var MINUS = ch("-");
 var UNDERSCORE = ch("_");
-var PLUS = ch("+")
-var EQUALS = ch("=")
-var LEFT_ACCOLADE = ch("{")
-var RIGHT_ACCOLADE = ch("}")
+var PLUS = ch("+");
+var EQUALS = ch("=");
+var LEFT_ACCOLADE = ch("{");
+var RIGHT_ACCOLADE = ch("}");
 var LEFT_BRACKET = ch("[");
 var RIGHT_BRACKET = ch("]");
 var COLON = ch(":");
@@ -993,8 +906,7 @@ var CommentRow = trace(pick(0, sequence(Comment, EOL)), "comment");
 var BDF = action(sequence( repeat0(CommentRow), FontStart, repeat0(CommentRow), repeat0(butnot(PropRow, GlyphStart)), repeat0(Glyph), FontEnd), MakeFont); // empty container is allowed
 
 // input: sequence( FontStart, repeat0(CommentRow), repeat0(butnot(PropRow, GlyphStart)), repeat0(Glyph), FontEnd)
-function MakeFont(ast)
-{
+function MakeFont(ast) {
   var formatVersion = ast[1];
   var comments = ast[0].concat(ast[2]);
   var properties = ast[3];
@@ -1004,8 +916,7 @@ function MakeFont(ast)
 }
 
 // input: sequence(GlyphStart, repeat0(PropRow), Bitmap, GlyphEnd
-function MakeGlyph(ast)
-{
+function MakeGlyph(ast) {
   var name = ast[0];
   var properties = ast[1];
   var bitmap = ast[2];
@@ -1015,10 +926,8 @@ function MakeGlyph(ast)
   return { name: g["ENCODING"], value :g};
 }
 
-function PropertyBagMixin(obj, proplist)
-{
-  for( var i=0 ; i<proplist.length ; i++ )
-  {
+function PropertyBagMixin(obj, proplist) {
+  for( var i=0 ; i<proplist.length ; i++ ) {
     var prop = proplist[i];
 
     // WATCH OUT! possibly overwriting pre-existing properties!
@@ -1028,12 +937,10 @@ function PropertyBagMixin(obj, proplist)
   return obj;
 }
 
-function PropertyList2Hash(proplist)
-{
+function PropertyList2Hash(proplist) {
   var hash = {};
 
-  for( var i=0 ; i<proplist.length ; i++ )
-  {
+  for( var i=0 ; i<proplist.length ; i++ ) {
     var prop = proplist[i];
 
     // WATCH OUT! possibly overwriting pre-existing properties!
@@ -1043,8 +950,7 @@ function PropertyList2Hash(proplist)
   return hash;
 }
 
-function MakeProp1(ast)
-{
+function MakeProp1(ast) {
   var value = ast[1];
   var name = ast[0];
 
@@ -1054,13 +960,11 @@ function MakeProp1(ast)
   return { name: name, value: value };
 }
 
-function MakeProp2(ast)
-{
+function MakeProp2(ast) {
   return { name: ast[0], value: ast[2] };
 }
 
-function flatten(p)
-{
+function flatten(p) {
   return join_action(p, "");
 }
 
@@ -1068,8 +972,7 @@ function pick(i, p) {
   return action(p, function(ast) { return ast[i]; });
 }
 
-function trace(p, label)
-{
+function trace(p, label) {
   var traceon = Pxxl.trace;
   var traceall = Pxxl.traceall;
 
@@ -1077,8 +980,7 @@ function trace(p, label)
 
   return function(state) {
     var result = p(state);
-    if (!result.ast)
-    {
+    if (!result.ast) {
       var matched = state.input.substring(0,state.index);
       var lines = matched.split("\n");
       //lines[lines.length-1]
@@ -1093,8 +995,7 @@ function trace(p, label)
 
 function pre(input) {
   var lines = input.split("\n");
-  for (var l=lines.length-1 ; l>=0 ; l--)
-  {
+  for (var l=lines.length-1 ; l>=0 ; l--) {
     var line = ltrim(lines[l]);
 
     if (line == "")
@@ -1110,8 +1011,7 @@ function ltrim(stringToTrim) {
 	return stringToTrim.replace(/^\s+/,"");
 }
 
-Pxxl.Font.ParseBDF = function (input, trace, traceall)
-{
+function parseBDF (input, trace, traceall) {
   Pxxl.trace = trace;
   Pxxl.traceall = traceall;
 
@@ -1129,11 +1029,81 @@ Pxxl.Font.ParseBDF = function (input, trace, traceall)
   throw new Error("Unable to parse font!");
 }
 
+// export only single function
+Pxxl.Font.ParseBDF = parseBDF;
+
+})();
+
+Pxxl.Glyph.ParseJSON = function (obj) {
+
+  var g = new Pxxl.Glyph(obj.name, obj.bitmap);
+
+  // shallow copy
+  for (var k in obj) {
+    if (obj.hasOwnProperty(k))
+      g[k] = obj[k];
+  }
+  //console.log("glyph", g.toString());
+  return g;
+};
+
+Pxxl.Font.ParseJSON = function (obj) {
+  var f = new Pxxl.Font(obj.version, obj.comments, obj.properties, {});
+  //console.log(f);
+  for (var k in obj) {
+    if (obj.hasOwnProperty(k) && k != "glyphs")
+      f[k] = obj[k];
+  }
+
+  f.glyphs = {};
+  for (var g in obj.glyphs) {
+    //console.log(g);
+    if (obj.glyphs.hasOwnProperty(g))
+      f.glyphs[g] = Pxxl.Glyph.ParseJSON(obj.glyphs[g]);
+  }
+  return f;
+};
+;(function() {
+  // FIXME: determine type based on mimetype and/or extension
+  var LoadFont = function LoadFont(url, callback) {
+    if(url.indexOf("json") > -1 )
+      $.getJSON(url, function(data) {
+        callback(Pxxl.Font.ParseJSON(data));
+      });
+    else
+      $.get(url, function(data) {
+        callback(Pxxl.Font.ParseBDF(data));
+      }, 'text');
+  };
+
+  // memoization funcion for use with callbacks
+  function memoize2(f) {
+    var cache = {};
+
+    return function (arg, callback) {
+      var cached = cache[arg];
+
+      if (typeof cached !== 'undefined') {
+        //console.log('cache hit: ', arg);
+        return callback(cached);
+      }
+      else {
+        //console.log('cache miss:', arg);
+        return f(arg, function(result) {
+          cache[arg] = result;
+          return callback(result);
+        });
+      }
+    };
+  }
+
+  Pxxl.LoadFont = memoize2(LoadFont);
+
 })();
 
 function pxxl(fontUrl, text, draw) {
   Pxxl.LoadFont(fontUrl, function(font) {
     var pixels = font.getPixels(text);
-    draw(pixels);
-  })
+    draw(pixels, font);
+  });
 }

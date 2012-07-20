@@ -1,6 +1,4 @@
-var Pxxl = Pxxl || {};
-
-(function() {
+;(function() {
   // FIXME: determine type based on mimetype and/or extension
   var LoadFont = function LoadFont(url, callback) {
     if(url.indexOf("json") > -1 )
@@ -20,20 +18,18 @@ var Pxxl = Pxxl || {};
     return function (arg, callback) {
       var cached = cache[arg];
 
-      if (typeof cached !== 'undefined')
-      {
+      if (typeof cached !== 'undefined') {
         //console.log('cache hit: ', arg);
         return callback(cached);
       }
-      else
-      {
+      else {
         //console.log('cache miss:', arg);
         return f(arg, function(result) {
           cache[arg] = result;
           return callback(result);
         });
       }
-    }
+    };
   }
 
   Pxxl.LoadFont = memoize2(LoadFont);

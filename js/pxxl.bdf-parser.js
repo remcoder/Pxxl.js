@@ -1,6 +1,4 @@
-var Pxxl = Pxxl || {};
-
-(function() {
+;(function() {
 
 var EXCLAMATION_MARK = ch("!");
 var AT = ch("@");
@@ -14,10 +12,10 @@ var LEFT_PARENTHESIS = ch("(");
 var RIGHT_PARENTHESIS = ch(")");
 var MINUS = ch("-");
 var UNDERSCORE = ch("_");
-var PLUS = ch("+")
-var EQUALS = ch("=")
-var LEFT_ACCOLADE = ch("{")
-var RIGHT_ACCOLADE = ch("}")
+var PLUS = ch("+");
+var EQUALS = ch("=");
+var LEFT_ACCOLADE = ch("{");
+var RIGHT_ACCOLADE = ch("}");
 var LEFT_BRACKET = ch("[");
 var RIGHT_BRACKET = ch("]");
 var COLON = ch(":");
@@ -100,8 +98,7 @@ var CommentRow = trace(pick(0, sequence(Comment, EOL)), "comment");
 var BDF = action(sequence( repeat0(CommentRow), FontStart, repeat0(CommentRow), repeat0(butnot(PropRow, GlyphStart)), repeat0(Glyph), FontEnd), MakeFont); // empty container is allowed
 
 // input: sequence( FontStart, repeat0(CommentRow), repeat0(butnot(PropRow, GlyphStart)), repeat0(Glyph), FontEnd)
-function MakeFont(ast)
-{
+function MakeFont(ast) {
   var formatVersion = ast[1];
   var comments = ast[0].concat(ast[2]);
   var properties = ast[3];
@@ -111,8 +108,7 @@ function MakeFont(ast)
 }
 
 // input: sequence(GlyphStart, repeat0(PropRow), Bitmap, GlyphEnd
-function MakeGlyph(ast)
-{
+function MakeGlyph(ast) {
   var name = ast[0];
   var properties = ast[1];
   var bitmap = ast[2];
@@ -122,10 +118,8 @@ function MakeGlyph(ast)
   return { name: g["ENCODING"], value :g};
 }
 
-function PropertyBagMixin(obj, proplist)
-{
-  for( var i=0 ; i<proplist.length ; i++ )
-  {
+function PropertyBagMixin(obj, proplist) {
+  for( var i=0 ; i<proplist.length ; i++ ) {
     var prop = proplist[i];
 
     // WATCH OUT! possibly overwriting pre-existing properties!
@@ -135,12 +129,10 @@ function PropertyBagMixin(obj, proplist)
   return obj;
 }
 
-function PropertyList2Hash(proplist)
-{
+function PropertyList2Hash(proplist) {
   var hash = {};
 
-  for( var i=0 ; i<proplist.length ; i++ )
-  {
+  for( var i=0 ; i<proplist.length ; i++ ) {
     var prop = proplist[i];
 
     // WATCH OUT! possibly overwriting pre-existing properties!
@@ -150,8 +142,7 @@ function PropertyList2Hash(proplist)
   return hash;
 }
 
-function MakeProp1(ast)
-{
+function MakeProp1(ast) {
   var value = ast[1];
   var name = ast[0];
 
@@ -161,13 +152,11 @@ function MakeProp1(ast)
   return { name: name, value: value };
 }
 
-function MakeProp2(ast)
-{
+function MakeProp2(ast) {
   return { name: ast[0], value: ast[2] };
 }
 
-function flatten(p)
-{
+function flatten(p) {
   return join_action(p, "");
 }
 
@@ -175,8 +164,7 @@ function pick(i, p) {
   return action(p, function(ast) { return ast[i]; });
 }
 
-function trace(p, label)
-{
+function trace(p, label) {
   var traceon = Pxxl.trace;
   var traceall = Pxxl.traceall;
 
@@ -184,8 +172,7 @@ function trace(p, label)
 
   return function(state) {
     var result = p(state);
-    if (!result.ast)
-    {
+    if (!result.ast) {
       var matched = state.input.substring(0,state.index);
       var lines = matched.split("\n");
       //lines[lines.length-1]
@@ -200,8 +187,7 @@ function trace(p, label)
 
 function pre(input) {
   var lines = input.split("\n");
-  for (var l=lines.length-1 ; l>=0 ; l--)
-  {
+  for (var l=lines.length-1 ; l>=0 ; l--) {
     var line = ltrim(lines[l]);
 
     if (line == "")
@@ -217,8 +203,7 @@ function ltrim(stringToTrim) {
 	return stringToTrim.replace(/^\s+/,"");
 }
 
-Pxxl.Font.ParseBDF = function (input, trace, traceall)
-{
+function parseBDF (input, trace, traceall) {
   Pxxl.trace = trace;
   Pxxl.traceall = traceall;
 
@@ -235,5 +220,8 @@ Pxxl.Font.ParseBDF = function (input, trace, traceall)
 
   throw new Error("Unable to parse font!");
 }
+
+// export only single function
+Pxxl.Font.ParseBDF = parseBDF;
 
 })();

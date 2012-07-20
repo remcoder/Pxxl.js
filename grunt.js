@@ -12,14 +12,20 @@ module.exports = function(grunt) {
         ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
     },
     lint: {
-      files: ['grunt.js', 'js/**/*.js', 'test/**/*.js']
+      files: ['grunt.js', 'js/**/*.js']
     },
     qunit: {
       files: ['test/**/*.html']
     },
     concat: {
       dist: {
-        src: ['lib/**/*.js', 'js/**/*.js'],
+        src: ['lib/**/*.js', 
+          'js/pxxl.font.js',
+          'js/pxxl.glyph.js',
+          'js/pxxl.bdf-parser.js',
+          'js/pxxl.json-parser.js',
+          'js/pxxl.loader.js',
+          'js/utils.js'],
         dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.js'
       }
     },

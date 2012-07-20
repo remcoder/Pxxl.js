@@ -1,25 +1,8 @@
-var Pxxl = Pxxl || {};
-
 Pxxl.Glyph = function (name, bitmap) {
   //console.log("Glyph", name, bitmap);
   this.name = name;
   this.bitmap = bitmap;
-}
-
-Pxxl.Glyph.ParseJSON = function (obj)
-{
-
-  var g = new Font.Glyph(obj.name, obj.bitmap);
-
-  // shallow copy
-  for (var k in obj)
-  {
-    if (obj.hasOwnProperty(k))
-      g[k] = obj[k];
-  }
-  //console.log("glyph", g.toString());
-  return g;
-}
+};
 
 Pxxl.Glyph.prototype = {
 
@@ -48,18 +31,15 @@ Pxxl.Glyph.prototype = {
     return !!result;
   },
 
-  width: function ()
-  {
+  width: function () {
     return this.BBX[0];
   },
 
-  height: function ()
-  {
+  height: function () {
     return this.BBX[1];
   },
 
-  toString: function()
-  {
+  toString: function() {
     var result = "";
     for (var y=0 ; y<this.bitmap.length ; y++)
     {
@@ -67,9 +47,9 @@ Pxxl.Glyph.prototype = {
       {
         result += this.get(x,y) ? "*" : " ";
       }
-      result += "/n"
+      result += "/n";
     }
 
     return result;
   }
-}
+};

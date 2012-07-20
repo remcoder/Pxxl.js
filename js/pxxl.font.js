@@ -1,4 +1,4 @@
-var Pxxl = Pxxl || {};
+var Pxxl = {};
 
 Pxxl.Font = function(version, comments, properties, glyphs) {
   this.version = version;
@@ -9,27 +9,7 @@ Pxxl.Font = function(version, comments, properties, glyphs) {
   //console.log("BDF version " + this.version);
   // if (comments && comments.length)
   //   console.log(comments.join(""));
-}
-
-Pxxl.Font.ParseJSON = function (obj)
-{
-  var f = new Pxxl.Font(obj.version, obj.comments, obj.properties, {});
-  //console.log(f);
-  for (var k in obj)
-  {
-    if (obj.hasOwnProperty(k) && k != "glyphs")
-      f[k] = obj[k];
-  }
-
-  f.glyphs = {};
-  for (var g in obj.glyphs)
-  {
-    //console.log(g);
-    if (obj.glyphs.hasOwnProperty(g))
-      f.glyphs[g] = Font.Glyph.ParseJSON(obj.glyphs[g]);
-  }
-  return f;
-}
+};
 
 Pxxl.Font.prototype = {
 
@@ -37,20 +17,17 @@ Pxxl.Font.prototype = {
     return this.SIZE[0];
   },
 
-  getGlyph: function(character)
-  {
+  getGlyph: function(character) {
     var c = character.charCodeAt(0);
 
     return this.glyphs[c];
   },
 
-  defaultWidth: function ()
-  {
+  defaultWidth: function () {
     return this.FONTBOUNDINGBOX[0];
   },
 
-  defaultHeight: function ()
-  {
+  defaultHeight: function () {
     return this.FONTBOUNDINGBOX[1];
   },
 
