@@ -1,3 +1,5 @@
+var Pxxl = Pxxl || {};
+
 (function() {
   // FIXME: determine type based on mimetype and/or extension
   var LoadFont = function LoadFont(url, callback) {

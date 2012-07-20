@@ -1,2 +1,0 @@
-var innerHeight;
-var innerWidth;

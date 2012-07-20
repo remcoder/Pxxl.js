@@ -1,3 +1,5 @@
+var Pxxl = Pxxl || {};
+
 Pxxl.Glyph = function (name, bitmap) {
   //console.log("Glyph", name, bitmap);
   this.name = name;

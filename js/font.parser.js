@@ -1,3 +1,5 @@
+var Pxxl = Pxxl || {};
+
 (function() {
 
 var EXCLAMATION_MARK = ch("!");

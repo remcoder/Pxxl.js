@@ -1,4 +1,4 @@
-var Pxxl = {};
+var Pxxl = Pxxl || {};
 
 Pxxl.Font = function(version, comments, properties, glyphs) {
   this.version = version;
