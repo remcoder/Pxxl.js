@@ -1,5 +1,7 @@
 from jinja2 import Environment, FileSystemLoader
-env = Environment(loader=FileSystemLoader('templates'))
+env = Environment(loader=FileSystemLoader('templates'), 
+  extensions=['jinja2.ext.autoescape'],
+  autoescape=True)
 
 demos = [{
   "title": 'canvas LEDs',
