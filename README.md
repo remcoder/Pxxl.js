@@ -1,4 +1,4 @@
-![example](http://remcoder.github.io/Pxxl.js/img/pxxl.png)
+![example](http://remcoder.github.io/Pxxl.js/img/interactive%20white.png)
 
 With pxxl.js and the included [BDF font](http://en.wikipedia.org/wiki/Glyph_Bitmap_Distribution_Format) files you can 'render' a text to an array of pixel coordinates. You can then use the pixel coordinates to do your own rendering.
 So pxxl.js itself doesn't really render anything to the screen. You might say it's 'as-if' rendering :-)
