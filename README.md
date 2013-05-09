@@ -86,4 +86,9 @@ The array looks like this:
      ..etc..        ]
 
 
+## More examples
+* [exploding cubes with 3D CSS](http://remcoder.github.io/Pxxl.js/demos/css3d)
+* [a canvas-based marquee of LEDs with afterglow](http://remcoder.github.io/Pxxl.js/demos/leds)
+* [a simple example of a color cycling animation](http://remcoder.github.io/Pxxl.js/demos/helloworld)
+
 
