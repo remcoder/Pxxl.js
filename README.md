@@ -6,13 +6,13 @@ So pxxl.js itself doesn't really render anthing to th screen. You might say it's
 You can then use the pixel coordinate info any way you can image. for example:
 
   - plot them to a canvas
-  - create a absolutely positioned divs for every pixel or
+  - create a absolutely positioned divs for every pixel
   - use WebGL
   - use 3D CSS
   - etc
 
 ## Download
- * [pxxl.js - developement version - uncompressed](https://github.com/remcoder/Pxxl.js/blob/master/dist/pxxl.js) (32k)
+ * [pxxl.js - development version - uncompressed](https://github.com/remcoder/Pxxl.js/blob/master/dist/pxxl.js) (32k)
  * [pxxl.min.js - production version - minified](https://github.com/remcoder/Pxxl.js/blob/master/dist/pxxl.min.js) (12k)
 
 ## Install via Bower
