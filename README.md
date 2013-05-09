@@ -61,7 +61,7 @@ The callback is where the rendering should happen. It is called after the font h
 
 ## API
 
-### Pxxl.LoadFont(<url>, <callback>)
+### Pxxl.LoadFont(url, callback)
 
 Load and parse a font file and executed the callback afterwards.
 
