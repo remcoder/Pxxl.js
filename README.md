@@ -1,12 +1,12 @@
 ![example](http://remcoder.github.io/Pxxl.js/img/pxxl.png)
 
 With pxxl.js and the included [BDF font](http://en.wikipedia.org/wiki/Glyph_Bitmap_Distribution_Format) files you can 'render' a text to an array of pixel coordinates. You can then use the pixel coordinates to do your own rendering.
-So pxxl.js itself doesn't really render anthing to th screen. You might say it's 'as-if' rendering :-)
+So pxxl.js itself doesn't really render anything to the screen. You might say it's 'as-if' rendering :-)
 
-You can then use the pixel coordinate info any way you can imagine. for example:
+You can then use the pixel coordinates in any way you can imagine. For example:
 
-  - plot them to a canvas
-  - create a absolutely positioned divs for every pixel
+  - plot them on a canvas
+  - create `position:absolute` divs
   - use WebGL
   - use 3D CSS
   - etc
@@ -63,7 +63,7 @@ The callback is where the rendering should happen. It is called after the font h
 
 ### Pxxl.LoadFont(url, callback)
 
-Load and parse a font file and executed the callback afterwards.
+Load and parse a font file and execute the callback afterwards.
 
     Pxxl.LoadFont(fontUrl, function(font) {
       ...
@@ -95,3 +95,5 @@ The array looks like this:
 ## Contributing
 Any and all feedback is welcome, suggestions, bug reports, pull requests, everything. Notably, I'd really want a WebGL demo for this lib but I haven't found the time to dive into WebGL. Let me know if you can help out! ;-)
 
+## Changelog 0.3 -> 0.4
+* removed dependency on jQuery
