@@ -99,6 +99,7 @@ The array looks like this:
 ## Contributing
 Any and all feedback is welcome, suggestions, bug reports, pull requests, everything. Notably, I'd really want a WebGL demo for this lib but I haven't found the time to dive into WebGL. Let me know if you can help out! ;-)
 
-## Changelog 0.4
+## Changelog
+### 0.4
 * removed dependency on jQuery
 * code clean up, resulting in a more consistent api using namespaces (Pxxl.Font etc)
