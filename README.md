@@ -14,6 +14,7 @@ You can then use the pixel coordinates in any way you can imagine. For example:
 ## Download
  * [pxxl.js - development version - uncompressed](https://github.com/remcoder/Pxxl.js/blob/master/dist/pxxl.js) (32k)
  * [pxxl.min.js - production version - minified](https://github.com/remcoder/Pxxl.js/blob/master/dist/pxxl.min.js) (12k)
+ * [a zipfile with a bunch of BDF fonts](http://remcoder.github.io/Pxxl.js/fonts.zip) (67k)
 
 ## Install via Bower
 You can install Pxxl.js via [bower](http://bower.io/) with the following command:
