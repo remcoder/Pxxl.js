@@ -29,11 +29,12 @@
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     .footer { text-align:center; padding-top:30px; font-style: italic; }
     .example { text-align: center; background-color: #222; border-radius: 5px; }
+    .strike { text-decoration: line-through; }
   </style>
   <link rel="stylesheet" href="highlight.css">
   <link rel="stylesheet" href="monokai.css">
-  
-  
+
+
 </head>
 
 <body>
@@ -54,6 +55,23 @@
       <code></code>
     </pre>
 
+
+
+    <h2>Download</h2>
+    <p>
+      To get started, download <a href="pxxl-0.4.0.min.js">Pxxl.js</a> (or the <a href="pxxl-0.4.0.js">unminified version</a>) and <a href="fonts.zip">these bitmap fonts</a>.
+    </p>
+    <p>
+      Or you can download the whole project in either
+      <a href="http://github.com/remcoder/Pxxl.js/zipball/master">zip</a> or
+      <a href="http://github.com/remcoder/Pxxl.js/tarball/master">tar</a> formats.
+    </p>
+    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
+      by running:
+      <pre>$ git clone git://github.com/remcoder/Pxxl.js</pre>
+    </p>
+    <br/>
+
     <h2>More examples</h2>
     <!-- TODO: screenshots -->
     <p>
@@ -65,31 +83,7 @@
     <p>
       <a href="demos/helloworld">color cycling</a>
     </p>
-    
-
-    <h2>Dependencies</h2>
-    <p>
-      You'll need:
-      <ol>
-        <li><a href="http://docs.jquery.com/Downloading_jQuery">JQuery</a> (this dependency should be removed eventually)</li>
-        <li><a href="fonts.zip">these bitmap fonts</a>. Put them in your www directory.</li>
-      </ol>
-    </p>
-
-    <h2>Download</h2>
-    <p>
-      To get started, download <a href="pxxl-0.3.min.js">Pxxl.js</a> and <a href="fonts.zip">these bitmap fonts</a>.
-    </p>
-    <p>
-      Or you can download the whole project in either
-      <a href="http://github.com/remcoder/Pxxl.js/zipball/master">zip</a> or
-      <a href="http://github.com/remcoder/Pxxl.js/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/remcoder/Pxxl.js</pre>
-    </p>
-
+    <br/>
     <h2>Author</h2>
     <p>Remco Veldkamp (<a href="http://twitter.com/remcoder">@remcoder</a>)
     <br/>
@@ -97,13 +91,21 @@
     MIT license
     </p>
 
+    <br/>
     <h2>Contribute</h2>
-    <p>Feel free to send me suggestions or other kinds of feedback. Preferably pull request :)</p>
+    <p>Feel free to send me suggestions or other kinds of feedback. Preferably pull requests :)</p>
+
+
+
+    <br/>
+    <h2>Changelog 0.3 -> 0.4</h2>
+    <ul>
+        <li>removed dependency on jQuery</li>
+    </ul>
 
     <div class="footer">
       get the source code on GitHub : <a href="http://github.com/remcoder/Pxxl.js">remcoder/Pxxl.js</a>
     </div>
-
   </div>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
   <script src="pxxl-0.3.min.js" type="text/javascript"></script>
@@ -114,7 +116,7 @@
     var pixel = pixels[p],
       x = pixel.x*6,
       y = pixel.y*6;
-    
+
     ctx.fillStyle = "hsl("+ hue +",100%,50%)";
     ctx.fillRect(x,y,5,5);
   }
@@ -138,6 +140,6 @@
     })();
 
   </script>
-  
+
 </body>
 </html>
