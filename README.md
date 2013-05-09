@@ -24,7 +24,7 @@ You can install Pxxl.js via [bower](http://bower.io/) with the following command
 ## Quick-start
 
 
-For simple scenarios, you can use the `pxxl()` function. It takes care of downloading the font file via ajax, it parses the font and then it 'renders' the text to a 'pixel info' array.
+For simple scenarios, you can use the `pxxl()` function. It takes care of downloading the font file via ajax, it parses the font, caches the result, and then it 'renders' the text to a 'pixel info' array.
 
     pxxl(<font-url>, <text>, <callback>)
 
@@ -44,6 +44,8 @@ The callback is where the rendering should happen. It is called after the font h
 	{ x: 2, y : 1 },
 	{ x: 3, y : 1 }
 	..etc..        ]
+
+Note that the font file won't be downloaded again on subsequent calls because the parsed font is cached.
 
 ## Example
 
