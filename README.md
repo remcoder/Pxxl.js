@@ -48,6 +48,7 @@ The callback is where the rendering should happen. It is called after the font h
 Note that the font file won't be downloaded again on subsequent calls because the parsed font is cached.
 
 ## Example
+![example](http://remcoder.github.io/Pxxl.js/img/pxxl.png)
 
     pxxl("fonts/c64d.bdf", "Pxxl.js", function (pixels) {
       var ctx = $('canvas')[0].getContext('2d');
