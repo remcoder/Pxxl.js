@@ -1,5 +1,10 @@
-Quick-start
-===========
+# Install via Bower
+You can install Pxxl.js via [bower](http://bower.io/) with the following command:
+	
+	$ bower install pxxl
+
+# Quick-start
+
 
 For simple scenarios, you can use the `pxxl()` function. It takes care of downloading the font file via ajax, it parses the font and then it 'renders' the text to a 'pixel info' array. 
 
