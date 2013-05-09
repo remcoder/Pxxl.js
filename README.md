@@ -3,7 +3,7 @@
 With pxxl.js and the included [BDF font](http://en.wikipedia.org/wiki/Glyph_Bitmap_Distribution_Format) files you can 'render' a text to an array of pixel coordinates. You can then use the pixel coordinates to do your own rendering.
 So pxxl.js itself doesn't really render anthing to th screen. You might say it's 'as-if' rendering :-)
 
-You can then use the pixel coordinate info any way you can image. for example:
+You can then use the pixel coordinate info any way you can imagine. for example:
 
   - plot them to a canvas
   - create a absolutely positioned divs for every pixel
@@ -92,4 +92,6 @@ The array looks like this:
 * [a simple example of a color cycling animation](http://remcoder.github.io/Pxxl.js/demos/helloworld)
 * [exploding fireworks particles that spell 'HAPPY NEWYEAR'](http://remcoder.github.io/Pxxl.js/demos/fireworks)
 
+## Contributing
+Any and all feedback is welcome, suggestions, bug reports, pull requests, everything. Notably, I'd really want a WebGL demo for this lib but I haven't found the time to dive into WebGL. Let me know if you can help out! ;-)
 
