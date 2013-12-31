@@ -491,7 +491,11 @@ window.onload = function() {
       "best",
       "wishes",
       "for", 
-      "2013"  
+      "2014",
+      "make",
+      "things",
+      "not",
+      "war"
     ];
     window.count = 0;
     Fireworks.initialize();
