@@ -66,47 +66,45 @@ Font.prototype = {
   },
 
   getPixels : function(text) {
-    //console.log(text, x,y, maxWidth);
-    var ctx = this.ctx;
     var hspacing = this.FONTBOUNDINGBOX[0];
 
-    window.pixels = pixels = [];
+    var pixels = [];
 
 
-     for( var t=0 ; t<text.length ; t++) // characters in a string x
+    for( var t=0 ; t<text.length ; t++) // characters in a string x
+    {
+     var chr = text.charCodeAt(t);
+     var glyph = this.glyphs[chr];
+
+     var bitmap = glyph.bitmap;
+     var dx = t * hspacing;
+     var dy = this.defaultHeight() - glyph.height(); // some glyphs have fewer rows
+
+     for ( var r=0 ; r<bitmap.length ; r++) // pixelrows in a glyph y
      {
-       var chr = text.charCodeAt(t);
-       var glyph = this.glyphs[chr];
+       var row = bitmap[r];
 
-       var bitmap = glyph.bitmap;
-       var dx = t * hspacing;
-       var dy = this.defaultHeight() - glyph.height(); // some glyphs have fewer rows
-
-       for ( var r=0 ; r<bitmap.length ; r++) // pixelrows in a glyph y
+       for (var b=0 ; b<row.length ; b++) // bytes in a row x
        {
-         var row = bitmap[r];
+         var byt = row[b];
 
-         for (var b=0 ; b<row.length ; b++) // bytes in a row x
+         var offset = b*8; //consecutive bytes are drawn next to each other
+         var bit = 256;
+
+         while (bit >>>= 1) // bits in a byte x
          {
-           var byt = row[b];
-
-           var offset = b*8; //consecutive bytes are drawn next to each other
-           var bit = 256;
-
-           while (bit >>>= 1) // bits in a byte x
+           if (byt & bit)
            {
-             if (byt & bit)
-             {
-               var px = dx+offset;
-               var py = dy+r;
+             var px = dx+offset;
+             var py = dy+r;
 
-                pixels.push({x:px, y:py, row:r, column:offset });
-             }
-             offset++;
+              pixels.push({x:px, y:py, row:r, column:offset });
            }
+           offset++;
          }
        }
      }
+    }
 
     return pixels;
   }
