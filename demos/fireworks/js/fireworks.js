@@ -327,15 +327,13 @@ var FireworkExplosions = {
     var text = strings[window.count];
     var glyphs = [];
 
-    for (var t=0 ; t<text.length ; t++)
-    {
+    for (var t=0 ; t<text.length ; t++) {
       var pixels = window.font.getPixels(text[t]);
       glyphs.push(pixels);
     }
 
     var delay = 0;
-    for (var g=0; g<glyphs.length ; g++)
-    {
+    for (var g=0; g<glyphs.length ; g++) {
       delay += 200 + Math.random() * 200;
       this.glyphDelayed(firework, glyphs, g, delay);
     }
@@ -353,19 +351,17 @@ var FireworkExplosions = {
   glyph: function(firework, glyphs, g) {
     var pixels = glyphs[g];
 
-    var rx = Math.random() * 10;
-    var ry = Math.random() * 6;
+    var rx = Math.random() * 6;
+    var ry = Math.random() * 10;
     var color = Math.floor(Math.random() * 100) * 12;
 
-    for(var p=0 ; p<pixels.length ; p++)
-    {
+    for(var p=0 ; p<pixels.length ; p++) {
       var pixel = pixels[p];
       var px = rx + (g * 16 + pixel.x) - glyphs.length * 8 + 1;
       var py = ry + pixel.y - 8;
       var d = Math.sqrt(px * px + py * py);
 
-      for (var i=0 ; i<4 ; i++)
-      {
+      for (var i=0 ; i<4 ; i++) {
         var randomVelocity = 1 + Math.random() * 4;
 
         Fireworks.createParticle(
@@ -410,6 +406,6 @@ window.onload = function() {
     window.count = 0;
     Fireworks.initialize();
 
-    fireworksGenerator();    
+    fireworksGenerator();
   });
 };
