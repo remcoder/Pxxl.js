@@ -107,6 +107,9 @@ The array looks like this:
 * [exploding fireworks particles that spell 'HAPPY NEWYEAR'](http://remcoder.github.io/Pxxl.js/demos/fireworks)
 
   ![example](http://remcoder.github.io/Pxxl.js/img/happy.png)
+  
+  ![example](http://remcoder.github.io/Pxxl.js/img/happy_newyear.gif)
+  
 
 ## Contributing
 Any and all feedback is welcome, suggestions, bug reports, pull requests, everything. Notably, I'd really want a WebGL demo for this lib but I haven't found the time to dive into WebGL. Let me know if you can help out! ;-)
