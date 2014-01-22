@@ -105,8 +105,6 @@ The array looks like this:
   ![example](http://remcoder.github.io/Pxxl.js/img/interactive.png)
   
 * [exploding fireworks particles that spell 'HAPPY NEWYEAR'](http://remcoder.github.io/Pxxl.js/demos/fireworks)
-
-  ![example](http://remcoder.github.io/Pxxl.js/img/happy.png)
   
   ![example](http://remcoder.github.io/Pxxl.js/img/happy_newyear.gif)
   
