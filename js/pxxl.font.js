@@ -1,6 +1,4 @@
-var Pxxl = {};
-
-Pxxl.Font = function(version, comments, properties, glyphs) {
+function Font(version, comments, properties, glyphs) {
   this.version = version;
   this.comments = comments;
   this.properties = properties;
@@ -11,7 +9,7 @@ Pxxl.Font = function(version, comments, properties, glyphs) {
   //   console.log(comments.join(""));
 };
 
-Pxxl.Font.prototype = {
+Font.prototype = {
 
   size: function() {
     return this.SIZE[0];
@@ -72,7 +70,7 @@ Pxxl.Font.prototype = {
          var offset = b*8; //consecutive bytes are drawn next to each other
          var bit = 256;
 
-         while (bit >>>= 1) // bits in a byte x
+         while (bit >>>= 1) // bits in a byte
          {
            if (byt & bit)
            {
@@ -90,4 +88,5 @@ Pxxl.Font.prototype = {
     return pixels;
   }
 };
-
+ 
+module.exports = Font;

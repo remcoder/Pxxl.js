@@ -1,4 +1,26 @@
-;(function() {
+var jsparse = require("../lib/jsparse.js");
+var PxxlFont = require("./pxxl.font.js");
+var PxxlGlyph = require("./pxxl.glyph.js");
+
+
+
+
+
+var ch = jsparse.ch;
+var range = jsparse.range;
+var choice = jsparse.choice;
+var repeat = jsparse.repeat;
+var sequence = jsparse.sequence;
+var action = jsparse.action;
+var join_action = jsparse.join_action;
+var token = jsparse.token;
+var ps = jsparse.ps;
+var repeat1 = jsparse.repeat1;
+var repeat0 = jsparse.repeat0;
+var butnot = jsparse.butnot;
+var optional = jsparse.optional;
+
+
 
 var EXCLAMATION_MARK = ch("!");
 var AT = ch("@");
@@ -103,7 +125,7 @@ function MakeFont(ast) {
   var comments = ast[0].concat(ast[2]);
   var properties = ast[3];
   var glyphs = PropertyList2Hash(ast[4]);
-  var f = new Pxxl.Font(formatVersion, comments, properties, glyphs);
+  var f = new PxxlFont(formatVersion, comments, properties, glyphs);
   return PropertyBagMixin(f, properties);
 }
 
@@ -112,7 +134,8 @@ function MakeGlyph(ast) {
   var name = ast[0];
   var properties = ast[1];
   var bitmap = ast[2];
-  var g =  new Pxxl.Glyph(name, bitmap);
+  
+  var g =  new PxxlGlyph(name, bitmap);
   //console.log("glyph", g.toString());
   g = PropertyBagMixin(g, properties);
   return { name: g["ENCODING"], value :g};
@@ -165,20 +188,24 @@ function pick(i, p) {
 }
 
 function trace(p, label) {
-  var traceon = Pxxl.trace;
-  var traceall = Pxxl.traceall;
+  var traceon = false;//Pxxl.trace;
+  var traceall = false; //Pxxl.traceall;
 
   if (!traceon) return p;
 
   return function(state) {
-    var result = p(state);
-    if (!result.ast) {
+    try {
+      var result = p(state);
+    } catch (err) {
+      var error  =1;
+    }
+    if (error || !result.ast) {
       var matched = state.input.substring(0,state.index);
       var lines = matched.split("\n");
       //lines[lines.length-1]
       console.error(label, "failed at line", lines.length, state);
     }
-    if (result.ast && traceall)
+    if (!error && result.ast && traceall)
       console.log(label, "matches", result.matched, "\nAST:", result.ast);
 
     return result;
@@ -204,8 +231,8 @@ function ltrim(stringToTrim) {
 }
 
 function parseBDF (input, trace, traceall) {
-  Pxxl.trace = trace;
-  Pxxl.traceall = traceall;
+  //Pxxl.trace = trace;
+  //Pxxl.traceall = traceall;
 
   input = pre(input);
   var state = ps(input);
@@ -222,6 +249,5 @@ function parseBDF (input, trace, traceall) {
 }
 
 // export only single function
-Pxxl.Font.ParseBDF = parseBDF;
+module.exports = parseBDF
 
-})();

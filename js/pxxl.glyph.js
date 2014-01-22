@@ -1,10 +1,10 @@
-Pxxl.Glyph = function (name, bitmap) {
+function Glyph(name, bitmap) {
   //console.log("Glyph", name, bitmap);
   this.name = name;
   this.bitmap = bitmap;
 };
 
-Pxxl.Glyph.prototype = {
+Glyph.prototype = {
 
   set: function (x,y,value) {
     var bit = 1 << this.width() - x - 1;
@@ -53,3 +53,5 @@ Pxxl.Glyph.prototype = {
     return result;
   }
 };
+
+module.exports = Glyph;
