@@ -11,6 +11,9 @@ You can then use the pixel coordinates in any way you can imagine. For example:
   - use 3D CSS
   - etc
 
+## Example
+![example](http://remcoder.github.io/Pxxl.js/img/happy_newyear.gif)
+
 ## Download
  * [pxxl.js - development version - uncompressed](https://github.com/remcoder/Pxxl.js/blob/master/dist/pxxl.js) (32k)
  * [pxxl.min.js - production version - minified](https://github.com/remcoder/Pxxl.js/blob/master/dist/pxxl.min.js) (12k)
@@ -47,7 +50,7 @@ The callback is where the rendering should happen. It is called after the font h
 
 Note that the font file won't be downloaded again on subsequent calls because the parsed font is cached.
 
-## Example
+## Simple example
 ![example](http://remcoder.github.io/Pxxl.js/img/pxxl.png)
 
     pxxl("fonts/c64d.bdf", "Pxxl.js", function (pixels) {
