@@ -61,7 +61,11 @@ var Digit = range("0","9");
 var LowerCase = range("a", "z");
 var UpperCase = range("A", "Z");
 
-var NEWLINE = ch('\n');
+var CR = ch('\r');
+var LF = ch('\n');
+var CRLF = sequence(CR, LF);
+var LINE_END = choice(CRLF,CR,LF);
+
 var Space = ch(' ');
 var Tab = ch("\t");
 
@@ -72,7 +76,7 @@ var Char = choice(NoSpaceChar, Space);
 var Spaces = flatten(repeat1(Space));
 var Text = flatten(repeat1(Char));
 
-var EOL = sequence(repeat0(Space), NEWLINE);
+var EOL = sequence(repeat0(Space), LINE_END);
 
 var QUOTED_STRING = pick(1, sequence(DOUBLE_QUOTE, flatten(repeat1(butnot(Char, DOUBLE_QUOTE))), DOUBLE_QUOTE));
 
@@ -248,6 +252,6 @@ function parseBDF (input, trace, traceall) {
   throw new Error("Unable to parse font!");
 }
 
-// export only single function
+// export oLFy single function
 module.exports = parseBDF
 
