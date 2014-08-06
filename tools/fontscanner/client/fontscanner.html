@@ -18,8 +18,17 @@
 </template>
 
 <template name="glyph">
-	<div class="glyph-container" title="{{.}}">
-		<div class="glyph">{{.}}</div>
+<div class="glyph-container">
+	<div class="headers flex">
+		<h2>original</h2>
+		<h2>scan info</h2>
+		<h2>svg render</h2>
+		<h2>BDF output</h2>
+	</div>
+	<div class="flex">
+		<div class="glyph">
+			<div class="glyph-ajust">{{.}}</div>
+		</div>
 		<canvas width=256 height=256></canvas>
 		<svg width=256 height=256></svg>
 		<pre>STARTCHAR C00{{encoding}}
@@ -31,4 +40,5 @@ BITMAP
 {{#each bytes}}{{.}}
 {{/each}}ENDCHAR</pre>
 	</div>
+</div>
 </template>

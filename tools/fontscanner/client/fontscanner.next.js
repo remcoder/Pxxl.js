@@ -12,7 +12,7 @@ dummy.src = 'BigDots.woff'
 Meteor.startup(function() {
 	var ascii = _.range(33, 127)
       .map( code => String.fromCharCode(code) ).join("");
-     Session.set('text', "a");
+     Session.set('text', ascii);
 })
 
 Template.scanner.events({
@@ -148,7 +148,7 @@ function build(svg, pixels) {
 		if (glyph[y][x])
 		{
 			var cx=x*16+8, cy=y*16+8;
-			var circle= makeSVG('circle', {cx: cx, cy: cy, r:8, fill: '#000'});
+			var circle= makeSVG('circle', {cx: cx, cy: cy, r:8, fill: 'cyan'});
 			$(svg).append(circle);
 		}
 	}	

@@ -27,12 +27,42 @@ input[name=text] {
 	background-color: rgba(128,255,0,0.4);
 	box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
 	padding: 10px;
+	font-family: courier;
 }
 
 .glyph-container {
 	/*margin: auto;*/
+	/*display: flex;*/
+	/*justify-content: center;*/
+	padding: 20px;
+	position: relative;
+}
+
+.flex {
 	display: flex;
 	justify-content: center;
+	* {
+		width: 256px;
+		margin-right: 20px;
+	}
+}
+
+.headers {
+	font-family: Verdana;
+	opacity: 0;
+	-webkit-transition: opacity .2s linear;
+	position: absolute;
+	
+	top: 0;
+	left: 0;
+	width: 100%;
+	color: white;
+	font-size: 12px;
+	padding: 5px;
+	h2 {
+		background-color: rgba(255,0,0,0.5);
+		text-align: center;
+	}
 }
 
 .glyph {
@@ -42,14 +72,20 @@ input[name=text] {
 	margin-bottom: 20px;
 	margin-right: 20px;
 	width: 256px;
-	/*height: 256px;*/
-	font-size: 64px;
+	height: 256px;
+	font-size: 256px;
 	border-bottom: 2px solid #eee;
+	text-align: left;
+
+	.glyph-ajust {
+		position: relative;
+		top: 25px;
+	}
 }
 
 canvas, svg, pre {
 	display: inline-block;
-	margin-bottom: 20px;
+	/*margin-bottom: 20px;*/
 	margin-right: 20px;
 	width: 256px;
 	height: 256px;
@@ -58,7 +94,7 @@ canvas, svg, pre {
 pre {
 	background-color: rgba(128,255,0,0.4);
 	box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
-	font-family: 'BigDots';
+	font-family: 'courier';
 	text-align: left;
 	padding: 10px;
 	box-sizing: border-box;
@@ -66,21 +102,29 @@ pre {
 	overflow-y: scroll;
 }
 
-svg {
-	/*margin-right: 0;*/
 
-	circle {
-		-webkit-animation: pulsate 1s alternate infinite;
+
+.glyph-container:hover {
+	background-color: rgba(255,255,128,0.3);
+	.headers {
+		opacity: 1;
 	}
 
-	for i in (1..256) {
-  		circle:nth-child({i}) {
-    		-webkit-animation-delay: 0.01s * i;
-  		}
+	svg {
+		circle {
+				-webkit-animation: pulsate 2s infinite;
+		}	
+		
+		for i in (1..256) {
+	  		circle:nth-child({i}) {
+	    		-webkit-animation-delay: 0.01s * i;
+	  		}
+		}
 	}
 }
 
 @-webkit-keyframes pulsate {
-  0%   { opacity: 0; }
-  100% { opacity: 1; }
+  0%   { opacity: 1; }
+  25%  { opacity: 0; }
+  50% { opacity: 1; }
 }
