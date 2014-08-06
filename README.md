@@ -11,6 +11,9 @@ You can then use the pixel coordinates in any way you can imagine. For example:
   - use 3D CSS
   - etc
 
+## Example
+![example](http://remcoder.github.io/Pxxl.js/img/happy_newyear.gif)
+
 ## Download
  * [pxxl.js - development version - uncompressed](https://github.com/remcoder/Pxxl.js/blob/master/dist/pxxl.js) (32k)
  * [pxxl.min.js - production version - minified](https://github.com/remcoder/Pxxl.js/blob/master/dist/pxxl.min.js) (12k)
@@ -47,7 +50,7 @@ The callback is where the rendering should happen. It is called after the font h
 
 Note that the font file won't be downloaded again on subsequent calls because the parsed font is cached.
 
-## Example
+## Simple example
 ![example](http://remcoder.github.io/Pxxl.js/img/pxxl.png)
 
     pxxl("fonts/c64d.bdf", "Pxxl.js", function (pixels) {
@@ -91,22 +94,23 @@ The array looks like this:
 
 
 ## More examples
-* [exploding cubes with 3D CSS](http://remcoder.github.io/Pxxl.js/demos/css3d)
+* exploding cubes with 3D CSS [demo](http://remcoder.github.io/Pxxl.js/demos/css3d)
 
   ![example](http://remcoder.github.io/Pxxl.js/img/cubes.png)
   
-* [a canvas-based marquee of LEDs with afterglow](http://remcoder.github.io/Pxxl.js/demos/leds)
+* a canvas-based marquee of LEDs with afterglow [demo](http://remcoder.github.io/Pxxl.js/demos/leds)
 
   ![example](http://remcoder.github.io/Pxxl.js/img/leds.png)
   
-* [a simple example of a color cycling animation](http://remcoder.github.io/Pxxl.js/demos/helloworld)
-* [isometric 2.5D text you can play with](http://remcoder.github.io/Pxxl.js/demos/interactive)
+* a simple example of a color cycling animation [demo](http://remcoder.github.io/Pxxl.js/demos/helloworld)
+* isometric 2.5D text you can play with [demo](http://remcoder.github.io/Pxxl.js/demos/interactive)
 
   ![example](http://remcoder.github.io/Pxxl.js/img/interactive.png)
   
-* [exploding fireworks particles that spell 'HAPPY NEWYEAR'](http://remcoder.github.io/Pxxl.js/demos/fireworks)
-
-  ![example](http://remcoder.github.io/Pxxl.js/img/happy.png)
+* exploding fireworks particles that spell 'HAPPY NEWYEAR' [demo](http://remcoder.github.io/Pxxl.js/demos/fireworks)
+  
+  ![example](http://remcoder.github.io/Pxxl.js/img/happy_newyear.gif)
+  
 
 ## Contributing
 Any and all feedback is welcome, suggestions, bug reports, pull requests, everything. Notably, I'd really want a WebGL demo for this lib but I haven't found the time to dive into WebGL. Let me know if you can help out! ;-)
