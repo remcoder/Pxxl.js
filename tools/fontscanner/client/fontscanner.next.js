@@ -88,7 +88,7 @@ Template.glyph.rendered = function ()  {
 	ctx.font="normal 256px BigDots";
 	ctx.fillStyle = "rgba(0,0,0,1)";
 	
-	this.autorun(() => { 	// create reactive code
+	this.autorun(() => { 	// create reactive context
 		fontFile.depend();  // ensure the reactive code is run again when the fontFile dep changes
 		if (fontFileLoaded) {
 			Meteor.setTimeout(()=> {
