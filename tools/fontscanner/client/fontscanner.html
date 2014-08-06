@@ -1,0 +1,30 @@
+<head>
+  <title>fontscanner</title>
+</head>
+
+<body>
+	<h1 class="bigdots">Fontscanner --> svg renderer</h1>
+
+ 	{{> scanner }}
+</body>
+
+<template name="scanner">
+	<style>
+		body {
+			background-color: {{color}};
+		}
+	</style>
+	<input name="text" value="{{text}}" />
+	
+	{{#each glyphs}}
+	  {{> glyph .}}
+	{{/each}}
+</template>
+
+<template name="glyph">
+	<div class="glyph-container" title="{{.}}">
+		<div class="glyph">{{.}}</div>
+		<canvas width=256 height=256></canvas>
+		<svg width=256 height=256></svg>
+	</div>
+</template>
