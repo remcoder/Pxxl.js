@@ -1,0 +1,56 @@
+
+/* CSS declarations go here */
+@font-face {
+  font-family: 'BigDots';
+  src: 
+       url('BigDots.woff') format('woff')
+       
+}
+
+.bigdots {
+	font-family: 'BigDots';
+	font-size: 64px;
+	font-weight: normal;
+}
+
+body {
+	text-align: center;
+}
+
+input[name=text] {
+	width: 810px;
+	font-size: 15px;
+	margin-bottom: 20px;
+	border: 0;
+	background-color: rgba(128,256,0,0.4);
+	padding: 10px;
+}
+
+.glyph-container {
+	margin: auto;
+}
+
+.glyph {
+	font-family: 'BigDots';
+	display: inline-block;
+	vertical-align: top;
+	margin-bottom: 20px;
+	margin-right: 20px;
+	width: 256px;
+	/*height: 256px;*/
+	font-size: 64px;
+	border-bottom: 2px solid #eee;
+}
+
+canvas, svg {
+	display: inline-block;
+	margin-bottom: 20px;
+	margin-right: 20px;
+	width: 256px;
+	height: 256px;
+}
+
+svg {
+	margin-right: 0;
+}
+
