@@ -1,5 +1,6 @@
 {
   "packages": {
-    "harmony": {}
+    "harmony": {},
+    "underscore-string-latest": {}
   }
 }

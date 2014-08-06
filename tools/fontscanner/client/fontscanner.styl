@@ -1,0 +1,84 @@
+
+/* CSS declarations go here */
+@font-face {
+  font-family: 'BigDots';
+  src:  url('BigDots.woff') format('woff');
+       
+}
+
+.bigdots {
+	font-family: 'BigDots';
+}
+
+body {
+	text-align: center;
+}
+
+h1 {
+	font-size: 64px;
+	font-weight: normal;
+}
+
+input[name=text] {
+	width: 810px;
+	font-size: 15px;
+	margin-bottom: 20px;
+	border: 0;
+	background-color: rgba(128,255,0,0.4);
+	box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
+	padding: 10px;
+}
+
+.glyph-container {
+	margin: auto;
+}
+
+.glyph {
+	font-family: 'BigDots';
+	display: inline-block;
+	vertical-align: top;
+	margin-bottom: 20px;
+	margin-right: 20px;
+	width: 256px;
+	/*height: 256px;*/
+	font-size: 64px;
+	border-bottom: 2px solid #eee;
+}
+
+canvas, svg, pre {
+	display: inline-block;
+	margin-bottom: 20px;
+	margin-right: 20px;
+	width: 256px;
+	height: 256px;
+}
+
+pre {
+	background-color: rgba(128,255,0,0.4);
+	box-shadow: 0 0 10px rgba(0,0,0,0.5) inset;
+	font-family: 'BigDots';
+	text-align: left;
+	padding: 10px;
+	box-sizing: border-box;
+	margin-top: 0;
+	overflow-y: scroll;
+}
+
+svg {
+	/*margin-right: 0;*/
+
+	circle {
+		-webkit-animation: pulsate 1s alternate infinite;
+	}
+
+	for i in (1..256) {
+  		circle:nth-child({i}) {
+    		-webkit-animation-delay: 0.01s * i;
+  		}
+	}
+}
+
+@-webkit-keyframes pulsate {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}

@@ -3,17 +3,13 @@
 </head>
 
 <body>
-	<h1 class="bigdots">Fontscanner --> svg renderer</h1>
+	<h1 class="bigdots">Fontscanner</h1>
 
  	{{> scanner }}
 </body>
 
 <template name="scanner">
-	<style>
-		body {
-			background-color: {{color}};
-		}
-	</style>
+
 	<input name="text" value="{{text}}" />
 	
 	{{#each glyphs}}
@@ -26,5 +22,13 @@
 		<div class="glyph">{{.}}</div>
 		<canvas width=256 height=256></canvas>
 		<svg width=256 height=256></svg>
+		<pre>STARTCHAR C00{{encoding}}
+ENCODING {{encoding}}
+SWIDTH 666 0
+DWIDTH 16 0
+BBX 16 16 0 -2
+BITMAP
+{{#each bytes}}{{.}}
+{{/each}}ENDCHAR</pre>
 	</div>
 </template>

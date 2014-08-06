@@ -2,13 +2,19 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
-      "harmony": {}
+      "harmony": {},
+      "underscore-string-latest": {}
     },
     "packages": {
       "harmony": {
         "git": "https://github.com/mquandalle/meteor-harmony.git",
         "tag": "v1.2.1",
         "commit": "433d276ddcc61eb80606eb15f4552f4fc3fbb8ca"
+      },
+      "underscore-string-latest": {
+        "git": "https://github.com/TimHeckel/meteor-underscore-string.git",
+        "tag": "v2.3.3",
+        "commit": "4a5d70eee48fbd90a6e6fc78747250d704a0b3bb"
       },
       "exports": {
         "git": "https://github.com/christianbundy/meteor-exports.git",
