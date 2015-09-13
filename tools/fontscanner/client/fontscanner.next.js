@@ -39,11 +39,12 @@ Template.scanner.helpers({
   	return (Session.get('text') || "").split("");
     return characters;
   },
-  bdfGlyph : function() { 
+  bdfGlyph : function() {
 		if (!pixels[this]) console.log('no pixels[this]',this);
-		return pixels && pixels[this] && pixels[this].get().bdfCode;
+		//return pixels && pixels[this] && pixels[this].get().bdfCode;
+		return null
 	}
-});  
+});
 
 var pixels = {};
 
