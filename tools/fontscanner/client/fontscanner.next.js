@@ -6,16 +6,20 @@ var fontFileLoaded = false;
 var characters = _.range(33, 127)
       .map( code => String.fromCharCode(code) );
 
-dummy.onerror = () => { 
+var pixelWidth = 12.3,
+		pixelHeight = 12.3;
+
+
+dummy.onerror = () => {
 	fontFile.changed();
 	fontFileLoaded = true;
 };
-dummy.src = 'BigDots.woff'
+dummy.src = 'StitchWarrior.ttf'
 
 Meteor.startup(function() {
 	var ascii = _.range(33, 127)
       .map( code => String.fromCharCode(code) ).join("");
-     Session.set('text', 'a');
+     Session.set('text', ascii);
 })
 
 Template.scanner.events({
@@ -71,7 +75,7 @@ function bytes(char) {
 				bit >>>= 1;
 			}
 
-			return _.str.pad(resultLeft.toString(16).toUpperCase(),2,"0") + 
+			return _.str.pad(resultLeft.toString(16).toUpperCase(),2,"0") +
 				_.str.pad(resultRight.toString(16).toUpperCase(),2,"0");
 		});
 }
@@ -92,7 +96,7 @@ function bdfCode (char) {
 
 Template.glyph.helpers({
 	encoding : function () { return this.charCodeAt(0); },
-	bytes : function () { 
+	bytes : function () {
 
 		return bytes(this);
 	}
@@ -110,18 +114,18 @@ Template.glyph.rendered = function ()  {
 	for(var y=0 ; y<16 ; y++)
 	for(var x=0 ; x<16 ; x++)
 		if( (x+y) % 2 )
-			ctx.fillRect(x*16,y*16,14,16);
-	
-	ctx.font="normal 256px 'BigDots'";
+			ctx.fillRect(x*pixelWidth,y*pixelHeight, pixelWidth, pixelHeight);
+
+	ctx.font="normal 256px 'StitchWarrior'";
 	ctx.fillStyle = "rgba(0,0,0,1)";
-	
+
 	this.autorun(() => { 	// create reactive context
 		fontFile.depend();  // ensure the reactive code is run again when the fontFile dep changes
 		if (fontFileLoaded) {
 			Meteor.setTimeout(()=> {
-				ctx.fillText(this.data.split("") ,0, 256-16*3 - 2);
+				ctx.fillText(this.data.split("") ,0, 256-pixelHeight*3 + 3 );
 				var pixelData = scan(canvas);
-				pixels[char].set( { 
+				pixels[char].set( {
 					pixelData : pixelData,
 					bdfCode : bdfCode(char)
 				});
@@ -136,16 +140,16 @@ function scan(canvas) {
 	var ctx=canvas.getContext("2d");
 	var glyph = [];
 
-	for(var y=0 ; y<256 ; y+=16) {
+	for(var y=0 ; y<256 ; y+=pixelHeight) {
 		var row = [];
 		glyph.push(row);
-		for(var x=0 ; x<256 ; x+=16) {
-			var cx=x+7, cy=y+7;
+		for(var x=0 ; x<256 ; x+=pixelWidth) {
+			var cx=x+Math.round(pixelWidth/2), cy=y+Math.round(pixelHeight/2);
 			var data = ctx.getImageData(cx, cy, 1,1).data;
 
 			if (data[0] == 0 && data[3] > 0) {
 				ctx.fillStyle = "rgba(255,0,0,0.5)";
-				ctx.fillRect(x,y,16,16);
+				ctx.fillRect(x,y, pixelWidth, pixelHeight);
 				row.push(1);
 			}else{
 				row.push(0);
@@ -180,7 +184,7 @@ function build(svg, pixelData) {
 			var circle= makeSVG('circle', {cx: cx, cy: cy, r:8, fill: 'cyan'});
 			$(svg).append(circle);
 		}
-	}	
+	}
 }
 
 
