@@ -10,17 +10,17 @@
 
 <template name="scanner">
 
-	<input name="text" value="{{text}}" />
+    <div>
+	    <input name="text" value="{{text}}" />
+    </div>
+    <div>
+        <button data-action="download-font">download font file</button>
+    </div>
 
 	{{#each glyphs}}
 	  {{> glyph .}}
 	{{/each}}
 
-	<textarea>
-		{{#each glyphs}}
-			{{> bdfGlyph }}
-		{{/each}}
-	</textarea>
 </template>
 
 <template name="glyph">
@@ -37,14 +37,15 @@
 		</div>
 		<canvas width=256 height=256></canvas>
 		<svg width=256 height=256></svg>
-<pre>STARTCHAR C00{{encoding}}
-ENCODING {{encoding}}
-SWIDTH 666 0
-DWIDTH 16 0
-BBX 16 16 0 -2
-BITMAP
-{{#each bytes}}{{.}}
-{{/each}}ENDCHAR</pre>
+<!--<pre>STARTCHAR C00{{encoding}}-->
+<!--ENCODING {{encoding}}-->
+<!--SWIDTH 666 0-->
+<!--DWIDTH 16 0-->
+<!--BBX 16 16 0 -2-->
+<!--BITMAP-->
+<!--{{#each bytes}}{{.}}-->
+<!--{{/each}}ENDCHAR</pre>-->
+<pre>{{bdfCode}}</pre>
 	</div>
 </div>
 </template>

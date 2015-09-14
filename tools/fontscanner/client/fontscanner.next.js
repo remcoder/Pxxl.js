@@ -1,10 +1,15 @@
 
 var fontFile = new Deps.Dependency();
-
+var fontName = 'StitchWarrior';
 var dummy = new Image();
 var fontFileLoaded = false;
 var characters = _.range(33, 127)
       .map( code => String.fromCharCode(code) );
+
+var pixels = {};
+characters.forEach(function(c) {
+		pixels[c] = new Blaze.ReactiveVar([]);
+});
 
 var pixelWidth = 12.3,
 		pixelHeight = 12.3;
@@ -14,13 +19,13 @@ dummy.onerror = () => {
 	fontFile.changed();
 	fontFileLoaded = true;
 };
-dummy.src = 'StitchWarrior.ttf'
+dummy.src = 'StitchWarrior.ttf';
 
 Meteor.startup(function() {
 	var ascii = _.range(33, 127)
       .map( code => String.fromCharCode(code) ).join("");
-     Session.set('text', ascii);
-})
+     Session.set('text', 'a');
+});
 
 Template.scanner.events({
 	'change input[name=text]' : function(evt) {
@@ -28,8 +33,14 @@ Template.scanner.events({
 	},
 	'keyup input[name=text]' : function(evt) {
 		Session.set('text', evt.currentTarget.value);
+	},
+  'click [data-action=download-font]' : function(evt) {
+		if(!Session.get('text')) return;
+
+	  console.log('downloading');
+		download(	makeFont(), "font.bdf", "text/plain" );
 	}
-})
+});
 
 Template.scanner.helpers({
   'color' : function() {
@@ -50,12 +61,9 @@ Template.scanner.helpers({
 	}
 });
 
-var pixels = {};
+function bytes(pixelData) {
 
-function bytes(char) {
-	// console.log(char);
-	if (!pixels[char] || !pixels[char].get().pixelData) return [];
-	return pixels[char].get().pixelData.map(row => {
+	return pixelData.map(row => {
 			var left = row.slice(0,8);
 			var right = row.slice(8);
 
@@ -80,25 +88,22 @@ function bytes(char) {
 		});
 }
 
-characters.forEach(function(c) {
-	pixels[c] = new Blaze.ReactiveVar([]);
-})
-
-function bdfCode (char) {
+function bdfCode (char, pixelData) {
+		console.log('bdfCode');
 	var encoding = char.charCodeAt(0);
 	var output= 'STARTCHAR C00{{encoding}}\nENCODING {{encoding}}\nSWIDTH 666 0\nDWIDTH 16 0\nBBX 16 16 0 -2\nBITMAP\n{{bytes}}\nENDCHAR'
 		.replace('{{encoding}}', encoding)
 		.replace('{{encoding}}', encoding)
-		.replace('{{bytes}}', bytes(char).join('\n'));
+		.replace('{{bytes}}', bytes(pixelData).join('\n'));
+		console.log(output);
 	return output;
 }
 
 
 Template.glyph.helpers({
-	encoding : function () { return this.charCodeAt(0); },
-	bytes : function () {
-
-		return bytes(this);
+  bdfCode : function() {
+			console.log(this)
+			return pixels[this].get().bdfCode;
 	}
 });
 
@@ -127,13 +132,13 @@ Template.glyph.rendered = function ()  {
 				var pixelData = scan(canvas);
 				pixels[char].set( {
 					pixelData : pixelData,
-					bdfCode : bdfCode(char)
+					bdfCode : bdfCode(char, pixelData)
 				});
 				build(svg, pixelData);
 			},0);
 		}
 		// console.log('autorun')
-	})
+	});
 }
 
 function scan(canvas) {
@@ -188,3 +193,20 @@ function build(svg, pixelData) {
 }
 
 
+function makeFont() {
+		var text = Session.get('text') || '';
+		text = _.uniq(text.split(''));
+		text = _.sortBy(text, function(c) { return c.charCodeAt(0); });
+		console.log(text);
+		text = text.join('');
+		var all = _.map(text, function(c) {
+				return pixels[c].get().bdfCode;
+		});
+
+		var preambule = ["COMMMENT Generated with remcoder's FontScanner",
+				"STARTFONT 2.1",
+				"FONT " + fontName,
+				"CHARS " + text.length];
+
+		return preambule.concat(all).join('\n');
+}
