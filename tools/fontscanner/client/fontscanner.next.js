@@ -117,7 +117,7 @@ Template.glyph.rendered = function ()  {
 			ctx.fillRect(x*pixelWidth,y*pixelHeight, pixelWidth, pixelHeight);
 
 	ctx.font="normal 256px 'StitchWarrior'";
-	ctx.fillStyle = "rgba(0,0,0,1)";
+	ctx.fillStyle = "#000";
 
 	this.autorun(() => { 	// create reactive context
 		fontFile.depend();  // ensure the reactive code is run again when the fontFile dep changes
@@ -148,7 +148,7 @@ function scan(canvas) {
 			var data = ctx.getImageData(cx, cy, 1,1).data;
 
 			if (data[0] == 0 && data[3] > 0) {
-				ctx.fillStyle = "rgba(255,0,0,0.5)";
+				ctx.fillStyle = "rgba(0,255,0,0.5)";
 				ctx.fillRect(x,y, pixelWidth, pixelHeight);
 				row.push(1);
 			}else{
@@ -181,7 +181,7 @@ function build(svg, pixelData) {
 		if (pixelData[y][x])
 		{
 			var cx=x*16+8, cy=y*16+8;
-			var circle= makeSVG('circle', {cx: cx, cy: cy, r:8, fill: 'cyan'});
+			var circle= makeSVG('circle', {cx: cx, cy: cy, r:8, fill: 'purple'});
 			$(svg).append(circle);
 		}
 	}
