@@ -3,24 +3,28 @@
 </head>
 
 <body>
-	<h1 class="bigdots">Fontscanner</h1>
+
+	    <h1 class="bigdots">Fontscanner</h1>
+
+
 
  	{{> scanner }}
 </body>
 
 <template name="scanner">
 
-    <div>
-	    <input name="text" value="{{text}}" />
-    </div>
-    <div>
-        <button data-action="download-font">download font file</button>
-    </div>
+    <div class="scanner">
+        <div>
+            <input name="text" value="{{text}}" />
+        </div>
+        <div>
+            <button data-action="download-font">download font file</button>
+        </div>
 
-	{{#each glyphs}}
-	  {{> glyph .}}
-	{{/each}}
-
+        {{#each glyphs}}
+          {{> glyph .}}
+        {{/each}}
+    </div>
 </template>
 
 <template name="glyph">

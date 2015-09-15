@@ -16,9 +16,49 @@ body {
 	text-align: center;
 }
 
+
 h1 {
 	font-size: 64px;
 	font-weight: normal;
+    position : absolute;
+    top:40px;
+    margin: 0 50% 0 50%;
+    transform: translateX(-50%);
+
+  &::before {
+	content: 'Fontscanner';
+	//background-color : rgba(0,0,255,0.2);
+	box-sizing: border-box;
+    border-radius : 8px;
+    //border-right: 2px solid rgba(255,0,0,0.6);
+
+    color: red;
+	position : absolute;
+	//opacity :0.5;
+	width: 16px;
+	overflow : hidden;
+	animation: scan 6s linear infinite alternate;
+    transform : tanslateZ(0);
+  }
+}
+
+.scanner {
+  margin-top: 180px;
+}
+
+@keyframes scan {
+  from {
+	left: 0;
+  }
+
+  40% {
+	left: calc(100% - 16px);
+	text-indent: calc(-100% + 16px);
+    visibility: hidden;
+  }
+  100% {
+    visibility : hidden;
+  }
 }
 
 input[name=text] {
