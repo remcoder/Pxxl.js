@@ -1,7 +1,7 @@
 
 var stage = document.createElement("div");
-$(stage).addClass("stage");
-$("#demo").append(stage);
+stage.classList.add("stage");
+document.getElementById("demo").appendChild(stage);
 var TRANSFORM = Modernizr.prefixed("transform");
 var TRANSITION = Modernizr.prefixed("transition");
 

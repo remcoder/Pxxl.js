@@ -2,7 +2,7 @@ pxxl('../../fonts/c64d.bdf', 'hello world', function (pixels) {
   var canvas = document.createElement("canvas");
   canvas.width=900;
   canvas.height=80;
-  $("#demo").append(canvas);
+  document.getElementById("demo").appendChild(canvas);
   var ctx = canvas.getContext('2d');
 
   setInterval(function() {

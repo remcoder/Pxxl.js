@@ -15,7 +15,7 @@ function led(px,py,alpha) {
 
 var text = "leds are cool";
 var canvas = document.createElement("canvas");
-$("#demo").append(canvas);
+document.getElementById("demo").appendChild(canvas);
 var ctx = canvas.getContext('2d');
 var size = 30;
 var width = ~~(text.length * 8 * size * 1.2);
