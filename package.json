@@ -1,7 +1,10 @@
 {
   "name": "pxxl",
   "version": "0.4.0",
+  "scripts": {
+    "build": "cat lib/jsparse.js js/pxxl.font.js js/pxxl.glyph.js js/pxxl.bdf-parser.js js/pxxl.json-parser.js js/pxxl.loader.js js/utils.js > dist/pxxl.js && terser dist/pxxl.js -c -m -o dist/pxxl.min.js"
+  },
   "devDependencies": {
-    "grunt": "^0.4.5"
+    "terser": "^5.0.0"
   }
 }

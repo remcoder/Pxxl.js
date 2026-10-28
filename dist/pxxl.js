@@ -655,7 +655,6 @@ function not(p) {
 }
 
 
-
 var Pxxl = {};
 
 Pxxl.Font = function(version, comments, properties, glyphs) {
@@ -749,7 +748,6 @@ Pxxl.Font.prototype = {
   }
 };
 
-
 Pxxl.Glyph = function (name, bitmap) {
   //console.log("Glyph", name, bitmap);
   this.name = name;
@@ -805,7 +803,6 @@ Pxxl.Glyph.prototype = {
     return result;
   }
 };
-
 ;(function() {
 
 var EXCLAMATION_MARK = ch("!");
@@ -1033,7 +1030,6 @@ function parseBDF (input, trace, traceall) {
 Pxxl.Font.ParseBDF = parseBDF;
 
 })();
-
 Pxxl.Glyph.ParseJSON = function (obj) {
 
   var g = new Pxxl.Glyph(obj.name, obj.bitmap);
@@ -1062,8 +1058,7 @@ Pxxl.Font.ParseJSON = function (obj) {
       f.glyphs[g] = Pxxl.Glyph.ParseJSON(obj.glyphs[g]);
   }
   return f;
-};
-;(function() {
+};;(function() {
   //from: http://www.quirksmode.org/js/xmlhttp.html
   function sendRequest(url,callback,postData) {
       var req = createXMLHTTPObject();
@@ -1143,7 +1138,6 @@ Pxxl.Font.ParseJSON = function (obj) {
   Pxxl.LoadFont = memoize2(LoadFont);
 
 })();
-
 function pxxl(fontUrl, text, draw) {
   Pxxl.LoadFont(fontUrl, function(font) {
     var pixels = font.getPixels(text);
