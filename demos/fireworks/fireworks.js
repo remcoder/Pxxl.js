@@ -20,10 +20,18 @@
  * THE SOFTWARE.
  */
 
+/*
+  Original fireworks effect by Paul Lewis (aerotwist) for CreativeJS.
+  see: http://creativejs.com/2011/12/day-7-fireworks
+
+  Text effect made using Pxxl.js by Remco Veldkamp (http://remcoder.github.com/Pxxl.js/) 
+  and the good ol' C64 bitmap font ;)
+*/
+
 var Fireworks = (function() {
 
   // declare the variables we need
-  var particles = [],
+  var particles = window.particles = [],
       mainCanvas = null,
       mainContext = null,
       fireworkCanvas = null,
@@ -147,14 +155,13 @@ var Fireworks = (function() {
         // if the firework isn't using physics
         // then we know we can safely(!) explode it... yeah.
         if(!firework.usePhysics) {
-
-          if(Math.random() < 0.8) {
-            FireworkExplosions.star(firework);
-          } else {
-            FireworkExplosions.circle(firework);
-          }
+          FireworkExplosions.text(firework);
         }
       }
+
+      // clean up particles outside window
+      if (firework.pos.y > innerHeight || firework.pos.x < 0 || firework.pos.x > innerWidth)
+        particles.splice(a, 1);
 
       // pass the canvas context and the firework
       // colours to the
@@ -224,7 +231,7 @@ var Particle = function(pos, target, vel, marker, usePhysics) {
   this.GRAVITY  = 0.06;
   this.alpha    = 1;
   this.easing   = Math.random() * 0.02;
-  this.fade     = Math.random() * 0.1;
+  this.fade     = Math.random() * 0.1 + 0.003;
   this.gridX    = marker % 120;
   this.gridY    = Math.floor(marker / 120) * 12;
   this.color    = marker;
@@ -337,105 +344,90 @@ var Library = {
  */
 var FireworkExplosions = {
 
-  /**
-   * Explodes in a roughly circular fashion
-   */
-  circle: function(firework) {
+ 
+  text: function(firework) {
+    var text = strings[window.count];
+    var glyphs = [];
 
-    var count = 100;
-    var angle = (Math.PI * 2) / count;
-    while(count--) {
-
-      var randomVelocity = 4 + Math.random() * 4;
-      var particleAngle = count * angle;
-
-      Fireworks.createParticle(
-        firework.pos,
-        null,
-        {
-          x: Math.cos(particleAngle) * randomVelocity,
-          y: Math.sin(particleAngle) * randomVelocity
-        },
-        firework.color,
-        true);
+    for (var t=0 ; t<text.length ; t++) {
+      var pixels = window.font.getPixels(text[t]);
+      glyphs.push(pixels);
     }
+
+    var delay = 0;
+    for (var g=0; g<glyphs.length ; g++) {
+      delay += 200 + Math.random() * 200;
+      this.glyphDelayed(firework, glyphs, g, delay);
+    }
+    window.count++;
+    window.count %= strings.length;
   },
 
-  /**
-   * Explodes in a star shape
-   */
-  star: function(firework) {
+  glyphDelayed : function(firework, glyphs, g, delay) {
+    var _this = this;
+      setTimeout(function() {
+        _this.glyph(firework, glyphs, g);
+      }, delay);
+  },
 
-    // set up how many points the firework
-    // should have as well as the velocity
-    // of the exploded particles etc
-    var points          = 6 + Math.round(Math.random() * 15);
-    var jump            = 3 + Math.round(Math.random() * 7);
-    var subdivisions    = 10;
-    var radius          = 80;
-    var randomVelocity  = -(Math.random() * 3 - 6);
+  glyph: function(firework, glyphs, g) {
+    var pixels = glyphs[g];
 
-    var start           = 0;
-    var end             = 0;
-    var circle          = Math.PI * 2;
-    var adjustment      = Math.random() * circle;
+    var rx = Math.random() * 6;
+    var ry = Math.random() * 10;
+    var color = Math.floor(Math.random() * 100) * 12;
 
-    do {
+    for(var p=0 ; p<pixels.length ; p++) {
+      var pixel = pixels[p];
+      var px = rx + (g * 16 + pixel.x) - glyphs.length * 8 + 1;
+      var py = ry + pixel.y - 8;
+      var d = Math.sqrt(px * px + py * py);
 
-      // work out the start, end
-      // and change values
-      start = end;
-      end = (end + jump) % points;
-
-      var sAngle = (start / points) * circle - adjustment;
-      var eAngle = ((start + jump) / points) * circle - adjustment;
-
-      var startPos = {
-        x: firework.pos.x + Math.cos(sAngle) * radius,
-        y: firework.pos.y + Math.sin(sAngle) * radius
-      };
-
-      var endPos = {
-        x: firework.pos.x + Math.cos(eAngle) * radius,
-        y: firework.pos.y + Math.sin(eAngle) * radius
-      };
-
-      var diffPos = {
-        x: endPos.x - startPos.x,
-        y: endPos.y - startPos.y,
-        a: eAngle - sAngle
-      };
-
-      // now linearly interpolate across
-      // the subdivisions to get to a final
-      // set of particles
-      for(var s = 0; s < subdivisions; s++) {
-
-        var sub = s / subdivisions;
-        var subAngle = sAngle + (sub * diffPos.a);
+      for (var i=0 ; i<4 ; i++) {
+        var randomVelocity = 1 + Math.random() * 4;
 
         Fireworks.createParticle(
           {
-            x: startPos.x + (sub * diffPos.x),
-            y: startPos.y + (sub * diffPos.y)
+            x: firework.pos.x + px * 15 + Math.random() * 3,
+            y: firework.pos.y + py * 15 + Math.random() * 3
           },
           null,
           {
-            x: Math.cos(subAngle) * randomVelocity,
-            y: Math.sin(subAngle) * randomVelocity
-          },
-          firework.color,
+            x: (pixel.x-8)/8 * randomVelocity, //Math.cos(randomAngle) * randomVelocity,
+            y: (pixel.y-10)/8 * randomVelocity //Math.sin(randomAngle) * randomVelocity
+          },  
+          color, //firework.color,
           true);
       }
-
-    // loop until we're back at the start
-    } while(end !== 0);
-
+    }
   }
-
 };
 
-// Go
+function fireworksGenerator() {
+  Fireworks.createParticle();
+  setTimeout(fireworksGenerator, 3000);
+}
+
+// wait for images to be loaded
 window.onload = function() {
-  Fireworks.initialize();
+  Pxxl.LoadFont("../../fonts/c64d.bdf", function(font) {
+    window.font = font;
+    window.strings = [
+      "happy",
+      "new",
+      "year",
+      "best",
+      "wishes",
+      "for", 
+      "2014",
+      "make",
+      "things",
+      "not",
+      "war"
+    ];
+    window.count = 0;
+    Fireworks.initialize();
+
+    fireworksGenerator();
+  });
 };
