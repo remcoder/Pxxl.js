@@ -54,7 +54,7 @@ Note that the font file won't be downloaded again on subsequent calls because th
 ![example](http://remcoder.github.io/Pxxl.js/img/pxxl.png)
 
     pxxl("fonts/c64d.bdf", "Pxxl.js", function (pixels) {
-      var ctx = $('canvas')[0].getContext('2d');
+      var ctx = document.querySelector('canvas').getContext('2d');
 
       for (var p=0,hue=0 ; p<pixels.length ; p++,hue++) {
         var pixel = pixels[p],
