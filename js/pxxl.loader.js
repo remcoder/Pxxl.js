@@ -5,13 +5,11 @@
       if (!req) return;
       var method = (postData) ? "POST" : "GET";
       req.open(method,url,true);
-      //req.setRequestHeader('User-Agent','XMLHTTP/1.0');
       if (postData)
           req.setRequestHeader('Content-type','application/x-www-form-urlencoded');
       req.onreadystatechange = function () {
           if (req.readyState != 4) return;
           if (req.status != 200 && req.status != 304) {
-  //          alert('HTTP error ' + req.status);
               return;
           }
           callback(req);
@@ -44,11 +42,6 @@
 
   function LoadFont(url, callback) {
     // FIXME: determine type based on mimetype and/or extension
-    // if(url.indexOf("json") > -1 )
-    //   $.getJSON(url, function(data) {
-    //     callback(Pxxl.Font.ParseJSON(data));
-    //   });
-    // else
     sendRequest(url,function(req) {
       callback(Pxxl.Font.ParseBDF(req.responseText));
     });
@@ -62,11 +55,9 @@
       var cached = cache[arg];
 
       if (typeof cached !== 'undefined') {
-        //console.log('cache hit: ', arg);
         return callback(cached);
       }
       else {
-        //console.log('cache miss:', arg);
         return f(arg, function(result) {
           cache[arg] = result;
           return callback(result);

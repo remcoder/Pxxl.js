@@ -26,18 +26,16 @@ pxxl("../../fonts/c64.bdf", text , function (pixels) {
     pixels = pixels.sort(function(p1,p2){ return p2.x-p1.x; });
     console.log("font loaded");
     canvas.width = innerWidth;
-    canvas.height = innerHeight; //;
+    canvas.height = innerHeight;
     ctx.fillStyle = "red";
     
 
     setInterval(function() {
-      //ctx.fillStyle = "rgba(0,0,0,0.7)";
       ctx.clearRect(0,0,canvas.width, canvas.height);
 
       ctx.fillStyle = "red";
       for (var i=0 ; i<pixels.length ; i++)
       {
-        //console.log("pixel",p);
         var p = pixels[i];
 
         led(p.x,p.y,0.8);

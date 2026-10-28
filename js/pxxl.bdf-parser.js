@@ -61,9 +61,7 @@ var Natural = flatten(repeat1(Digit));
 
 var NegativeNumber = flatten(sequence(MINUS, Natural));
 var Integer = action(choice(Natural, NegativeNumber), parseInt);
-//var Word = flatten(repeat1(Alpha));
 
-//var PropName = flatten(sequence(Alpha, flatten(repeat0(choice(Alpha, UNDERSCORE)))));
 var PropName = flatten(repeat1(choice(Alpha, UNDERSCORE)));
 var Prop1 = action(sequence(PropName, repeat1(pick(1,sequence(Spaces, Integer)))), MakeProp1);
 var Prop2 = action(sequence(PropName, Spaces, QUOTED_STRING), MakeProp2);
@@ -83,7 +81,6 @@ var GlyphStart = trace(pick(2, sequence(STARTCHAR, Space, Text, EOL)), "glyphsta
 var GlyphEnd = sequence(ENDCHAR, EOL);
 var Glyph = trace(action(sequence(GlyphStart, repeat0(PropRow), Bitmap, GlyphEnd), MakeGlyph), "glyph");
 
-//var Glyph = action(_Glyph, function(ast) { console.log(ast)} );
 
 var STARTFONT = token("STARTFONT");
 var ENDFONT = token("ENDFONT");
@@ -113,7 +110,6 @@ function MakeGlyph(ast) {
   var properties = ast[1];
   var bitmap = ast[2];
   var g =  new Pxxl.Glyph(name, bitmap);
-  //console.log("glyph", g.toString());
   g = PropertyBagMixin(g, properties);
   return { name: g["ENCODING"], value :g};
 }
@@ -175,7 +171,6 @@ function trace(p, label) {
     if (!result.ast) {
       var matched = state.input.substring(0,state.index);
       var lines = matched.split("\n");
-      //lines[lines.length-1]
       console.error(label, "failed at line", lines.length, state);
     }
     if (result.ast && traceall)
@@ -214,7 +209,6 @@ function parseBDF (input, trace, traceall) {
   var time = +new Date - before;
 
   if (result.ast) {
-    //console.log("parsing took: " + time + "ms");
     return result.ast;
   }
 

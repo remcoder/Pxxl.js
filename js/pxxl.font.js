@@ -5,10 +5,6 @@ Pxxl.Font = function(version, comments, properties, glyphs) {
   this.comments = comments;
   this.properties = properties;
   this.glyphs = glyphs;
-  //console.log(glyphs);
-  //console.log("BDF version " + this.version);
-  // if (comments && comments.length)
-  //   console.log(comments.join(""));
 };
 
 Pxxl.Font.prototype = {
@@ -36,7 +32,6 @@ Pxxl.Font.prototype = {
     if (t < 0 || t > text.length-1) return false;
     var c = text.charCodeAt(t);
 
-    //console.log(t);
     var g = this.glyphs[c];
     if (g)
       return g.bit(row , column % 8);
@@ -45,7 +40,6 @@ Pxxl.Font.prototype = {
   },
 
   getPixels : function(text) {
-    //console.log(text, x,y, maxWidth);
     var ctx = this.ctx;
     var hspacing = this.FONTBOUNDINGBOX[0];
 

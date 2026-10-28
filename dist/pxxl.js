@@ -662,10 +662,6 @@ Pxxl.Font = function(version, comments, properties, glyphs) {
   this.comments = comments;
   this.properties = properties;
   this.glyphs = glyphs;
-  //console.log(glyphs);
-  //console.log("BDF version " + this.version);
-  // if (comments && comments.length)
-  //   console.log(comments.join(""));
 };
 
 Pxxl.Font.prototype = {
@@ -693,7 +689,6 @@ Pxxl.Font.prototype = {
     if (t < 0 || t > text.length-1) return false;
     var c = text.charCodeAt(t);
 
-    //console.log(t);
     var g = this.glyphs[c];
     if (g)
       return g.bit(row , column % 8);
@@ -702,7 +697,6 @@ Pxxl.Font.prototype = {
   },
 
   getPixels : function(text) {
-    //console.log(text, x,y, maxWidth);
     var ctx = this.ctx;
     var hspacing = this.FONTBOUNDINGBOX[0];
 
@@ -749,7 +743,6 @@ Pxxl.Font.prototype = {
 };
 
 Pxxl.Glyph = function (name, bitmap) {
-  //console.log("Glyph", name, bitmap);
   this.name = name;
   this.bitmap = bitmap;
 };
@@ -761,14 +754,12 @@ Pxxl.Glyph.prototype = {
     var byt = ~~(bit/256);
     bit %= (byt+1) * 256;
 
-    //console.log(this.bitmap);
 
     if (value)
       this.bitmap[y][byt] |= bit;
     else
       this.bitmap[y][byt] &= ~bit;
 
-    //console.log(this.bitmap);
   },
 
   get: function (x,y) {
@@ -777,7 +768,6 @@ Pxxl.Glyph.prototype = {
     bit %= (byt+1) * 256;
 
     var result = this.bitmap[y][byt] & bit;
-    //console.log("x:"+x, "y:"+y, "bit:"+bit, "byte:"+byte, "value:"+result );
     return !!result;
   },
 
@@ -866,9 +856,7 @@ var Natural = flatten(repeat1(Digit));
 
 var NegativeNumber = flatten(sequence(MINUS, Natural));
 var Integer = action(choice(Natural, NegativeNumber), parseInt);
-//var Word = flatten(repeat1(Alpha));
 
-//var PropName = flatten(sequence(Alpha, flatten(repeat0(choice(Alpha, UNDERSCORE)))));
 var PropName = flatten(repeat1(choice(Alpha, UNDERSCORE)));
 var Prop1 = action(sequence(PropName, repeat1(pick(1,sequence(Spaces, Integer)))), MakeProp1);
 var Prop2 = action(sequence(PropName, Spaces, QUOTED_STRING), MakeProp2);
@@ -888,7 +876,6 @@ var GlyphStart = trace(pick(2, sequence(STARTCHAR, Space, Text, EOL)), "glyphsta
 var GlyphEnd = sequence(ENDCHAR, EOL);
 var Glyph = trace(action(sequence(GlyphStart, repeat0(PropRow), Bitmap, GlyphEnd), MakeGlyph), "glyph");
 
-//var Glyph = action(_Glyph, function(ast) { console.log(ast)} );
 
 var STARTFONT = token("STARTFONT");
 var ENDFONT = token("ENDFONT");
@@ -918,7 +905,6 @@ function MakeGlyph(ast) {
   var properties = ast[1];
   var bitmap = ast[2];
   var g =  new Pxxl.Glyph(name, bitmap);
-  //console.log("glyph", g.toString());
   g = PropertyBagMixin(g, properties);
   return { name: g["ENCODING"], value :g};
 }
@@ -980,7 +966,6 @@ function trace(p, label) {
     if (!result.ast) {
       var matched = state.input.substring(0,state.index);
       var lines = matched.split("\n");
-      //lines[lines.length-1]
       console.error(label, "failed at line", lines.length, state);
     }
     if (result.ast && traceall)
@@ -1019,7 +1004,6 @@ function parseBDF (input, trace, traceall) {
   var time = +new Date - before;
 
   if (result.ast) {
-    //console.log("parsing took: " + time + "ms");
     return result.ast;
   }
 
@@ -1039,13 +1023,11 @@ Pxxl.Glyph.ParseJSON = function (obj) {
     if (obj.hasOwnProperty(k))
       g[k] = obj[k];
   }
-  //console.log("glyph", g.toString());
   return g;
 };
 
 Pxxl.Font.ParseJSON = function (obj) {
   var f = new Pxxl.Font(obj.version, obj.comments, obj.properties, {});
-  //console.log(f);
   for (var k in obj) {
     if (obj.hasOwnProperty(k) && k != "glyphs")
       f[k] = obj[k];
@@ -1053,7 +1035,6 @@ Pxxl.Font.ParseJSON = function (obj) {
 
   f.glyphs = {};
   for (var g in obj.glyphs) {
-    //console.log(g);
     if (obj.glyphs.hasOwnProperty(g))
       f.glyphs[g] = Pxxl.Glyph.ParseJSON(obj.glyphs[g]);
   }
@@ -1065,13 +1046,11 @@ Pxxl.Font.ParseJSON = function (obj) {
       if (!req) return;
       var method = (postData) ? "POST" : "GET";
       req.open(method,url,true);
-      //req.setRequestHeader('User-Agent','XMLHTTP/1.0');
       if (postData)
           req.setRequestHeader('Content-type','application/x-www-form-urlencoded');
       req.onreadystatechange = function () {
           if (req.readyState != 4) return;
           if (req.status != 200 && req.status != 304) {
-  //          alert('HTTP error ' + req.status);
               return;
           }
           callback(req);
@@ -1104,11 +1083,6 @@ Pxxl.Font.ParseJSON = function (obj) {
 
   function LoadFont(url, callback) {
     // FIXME: determine type based on mimetype and/or extension
-    // if(url.indexOf("json") > -1 )
-    //   $.getJSON(url, function(data) {
-    //     callback(Pxxl.Font.ParseJSON(data));
-    //   });
-    // else
     sendRequest(url,function(req) {
       callback(Pxxl.Font.ParseBDF(req.responseText));
     });
@@ -1122,11 +1096,9 @@ Pxxl.Font.ParseJSON = function (obj) {
       var cached = cache[arg];
 
       if (typeof cached !== 'undefined') {
-        //console.log('cache hit: ', arg);
         return callback(cached);
       }
       else {
-        //console.log('cache miss:', arg);
         return f(arg, function(result) {
           cache[arg] = result;
           return callback(result);

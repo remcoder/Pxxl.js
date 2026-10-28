@@ -1,5 +1,4 @@
 Pxxl.Glyph = function (name, bitmap) {
-  //console.log("Glyph", name, bitmap);
   this.name = name;
   this.bitmap = bitmap;
 };
@@ -11,14 +10,12 @@ Pxxl.Glyph.prototype = {
     var byt = ~~(bit/256);
     bit %= (byt+1) * 256;
 
-    //console.log(this.bitmap);
 
     if (value)
       this.bitmap[y][byt] |= bit;
     else
       this.bitmap[y][byt] &= ~bit;
 
-    //console.log(this.bitmap);
   },
 
   get: function (x,y) {
@@ -27,7 +24,6 @@ Pxxl.Glyph.prototype = {
     bit %= (byt+1) * 256;
 
     var result = this.bitmap[y][byt] & bit;
-    //console.log("x:"+x, "y:"+y, "bit:"+bit, "byte:"+byte, "value:"+result );
     return !!result;
   },
 
