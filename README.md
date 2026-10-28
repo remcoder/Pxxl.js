@@ -11,16 +11,12 @@ You can then use the pixel coordinates in any way you can imagine. For example:
   - use 3D CSS
   - etc
 
-## Example
-![example](http://remcoder.github.io/Pxxl.js/img/happy_newyear.gif)
-
 ## Download
  * [pxxl.js - development version - uncompressed](https://github.com/remcoder/Pxxl.js/blob/master/dist/pxxl.js) (32k)
  * [pxxl.min.js - production version - minified](https://github.com/remcoder/Pxxl.js/blob/master/dist/pxxl.min.js) (12k)
  * [a zipfile with a bunch of BDF fonts](http://remcoder.github.io/Pxxl.js/fonts.zip) (67k)
 
 ## Install via Bower
-You can install Pxxl.js via [bower](http://bower.io/) with the following command:
 
 	$ bower install pxxl
 
@@ -97,20 +93,31 @@ The array looks like this:
 * exploding cubes with 3D CSS [demo](http://remcoder.github.io/Pxxl.js/demos/css3d)
 
   ![example](http://remcoder.github.io/Pxxl.js/img/cubes.png)
-  
+
 * a canvas-based marquee of LEDs with afterglow [demo](http://remcoder.github.io/Pxxl.js/demos/leds)
 
   ![example](http://remcoder.github.io/Pxxl.js/img/leds.png)
-  
+
 * a simple example of a color cycling animation [demo](http://remcoder.github.io/Pxxl.js/demos/helloworld)
 * isometric 2.5D text you can play with [demo](http://remcoder.github.io/Pxxl.js/demos/interactive)
 
   ![example](http://remcoder.github.io/Pxxl.js/img/interactive.png)
-  
+
 * exploding fireworks particles that spell 'HAPPY NEWYEAR' [demo](http://remcoder.github.io/Pxxl.js/demos/fireworks)
-  
+
   ![example](http://remcoder.github.io/Pxxl.js/img/happy_newyear.gif)
-  
+
+
+## Development
+The demos load fonts via XHR, so they have to be served over HTTP (opening the html files directly won't work). The demos use `dist/pxxl.js`.
+
+    $ npm install
+    $ npm run build                      # concatenates js/ into dist/pxxl.js and minifies to dist/pxxl.min.js
+    $ python3 -m http.server             # then open http://localhost:8000/demos/leds/ etc.
+
+The `leds`, `helloworld` and `css3d` pages are generated from `demos/templates/demo.html` and each demo's `demo.js` with `python3 demos/build.py` (needs `jinja2`, run from the `demos` folder). The `fireworks` and `interactive` pages are hand-written.
+
+`tools/fontscanner` is a retired Meteor app that turned TTF fonts into BDF. The code is kept in case it's ever rebuilt without Meteor.
 
 ## Contributing
 Any and all feedback is welcome, suggestions, bug reports, pull requests, everything. Notably, I'd really want a WebGL demo for this lib but I haven't found the time to dive into WebGL. Let me know if you can help out! ;-)

@@ -1,7 +1,7 @@
+import os
 from jinja2 import Environment, FileSystemLoader
-env = Environment(loader=FileSystemLoader('templates'), 
-  extensions=['jinja2.ext.autoescape'],
-  autoescape=True)
+env = Environment(loader=FileSystemLoader('templates'), autoescape=True,
+  trim_blocks=True, lstrip_blocks=True)
 
 demos = [{
   "title": 'canvas LEDs',
@@ -25,11 +25,14 @@ for demo in demos:
   template = env.get_template('demo.html')
 
   # css theme
-  theme = demo["theme"] if demo.has_key("theme") else None
-  highlight_theme = demo["highlight_theme"] if demo.has_key("highlight_theme") else None
+  theme = demo.get("theme")
+  highlight_theme = demo.get("highlight_theme")
 
-  html = template.render(title=demo["title"], 
-    code=code, theme=theme, highlight_theme=highlight_theme)
+  # only link a demo-specific stylesheet if there is one
+  local_css = os.path.exists(demo["dir"] + '/demo.css')
+
+  html = template.render(title=demo["title"], code=code, theme=theme,
+    highlight_theme=highlight_theme, local_css=local_css)
 
   with open(demo["dir"] + '/index.html', 'w') as f3:
     f3.write(html)
