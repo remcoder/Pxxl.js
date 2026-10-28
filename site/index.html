@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+
+  <title>remcoder/Pxxl.js @ GitHub</title>
+
+  <style type="text/css">
+    body {
+      margin-top: 1.0em;
+      background-color: #000;
+      font-family: Helvetica, Arial, FreeSans, san-serif;
+      color: #ffffff;
+    }
+    #container {
+      margin: 0 auto;
+      width: 700px;
+    }
+    h1 { font-size: 3.8em; color: #D91650; margin-bottom: 3px; }
+    h1 .small { font-size: 0.4em; }
+    h1 a { text-decoration: none }
+    h2 { font-size: 1.5em; color: #D91650; }
+    h3 { text-align: center; color: #f78540; }
+    a { color: #D91650; }
+    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
+    .download { float: right; }
+    pre { background: #222; xcolor: #fff; padding: 15px; font-size: 120%; color: #bbf; border-radius: 5px;}
+    pre.example-code { padding: 0 15px 15px 15px; }
+    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+    .footer { text-align:center; padding-top:30px; font-style: italic; }
+    .example { text-align: center; background-color: #222; border-radius: 5px; }
+    .strike { text-decoration: line-through; }
+  </style>
+  <link rel="stylesheet" href="highlight.css">
+  <link rel="stylesheet" href="monokai.css">
+
+
+</head>
+
+<body>
+  <a href="http://github.com/remcoder/Pxxl.js"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+
+  <div id="container">
+
+    <h1>
+      <canvas id='c' width='700' height='96'></canvas>
+    </h1>
+
+    <p class='description'>Create pixel info from any text so you can render characters yourself, anyway you want.</p>
+
+    <h2>Example code</h2>
+    <p>This is the code used to generate the header on this page.</p>
+    <pre class="example-code javascript">
+      <code></code>
+    </pre>
+
+
+
+    <h2>Download</h2>
+    <p>
+      To get started, download <a href="dist/pxxl.min.js">Pxxl.js</a> (or the <a href="dist/pxxl.js">unminified version</a>) and <a href="fonts.zip">these bitmap fonts</a>.
+    </p>
+    <p>
+      Or you can download the whole project in either
+      <a href="http://github.com/remcoder/Pxxl.js/zipball/master">zip</a> or
+      <a href="http://github.com/remcoder/Pxxl.js/tarball/master">tar</a> formats.
+    </p>
+    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
+      by running:
+      <pre>$ git clone git://github.com/remcoder/Pxxl.js</pre>
+    </p>
+    <br/>
+
+    <h2>More examples</h2>
+    <p>
+      <a href="demos/css3d">3D css</a>
+    </p>
+    <p>
+      <a href="demos/leds">LEDs</a>
+    </p>
+    <p>
+      <a href="demos/helloworld">color cycling</a>
+    </p>
+    <p>
+      <a href="demos/interactive">isometric text you can play with</a>
+    </p>
+    <p>
+      <a href="demos/fireworks">fireworks</a>
+    </p>
+    <br/>
+    <h2>Author</h2>
+    <p>Remco Veldkamp (<a href="http://twitter.com/remcoder">@remcoder</a>)
+    <br/>
+    <br/>
+    MIT license
+    </p>
+
+    <br/>
+    <h2>Contribute</h2>
+    <p>Feel free to send me suggestions or other kinds of feedback. Preferably pull requests :)</p>
+
+
+
+    <br/>
+    <h2>Changelog 0.3 -&gt; 0.4</h2>
+    <ul>
+        <li>removed dependency on jQuery</li>
+    </ul>
+
+    <div class="footer">
+      get the source code on GitHub : <a href="http://github.com/remcoder/Pxxl.js">remcoder/Pxxl.js</a>
+    </div>
+  </div>
+  <script src="dist/pxxl.js" type="text/javascript"></script>
+  <script id='code'>pxxl("fonts/c64d.bdf", "Pxxl.js", function (pixels) {
+  var ctx = document.querySelector('canvas').getContext('2d');
+
+  for (var p=0,hue=0 ; p<pixels.length ; p++,hue++) {
+    var pixel = pixels[p],
+      x = pixel.x*6,
+      y = pixel.y*6;
+
+    ctx.fillStyle = "hsl("+ hue +",100%,50%)";
+    ctx.fillRect(x,y,5,5);
+  }
+});</script>
+  <script src='highlight.pack.js'></script>
+  <script>
+    document.querySelector("code").textContent = document.getElementById("code").textContent;
+    hljs.tabReplace = '  ';
+    hljs.initHighlightingOnLoad();
+  </script>
+  <script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-24377032-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+
+</body>
+</html>

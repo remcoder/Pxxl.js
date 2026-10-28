@@ -2,7 +2,8 @@
   "name": "pxxl",
   "version": "0.4.0",
   "scripts": {
-    "build": "cat lib/jsparse.js js/pxxl.font.js js/pxxl.glyph.js js/pxxl.bdf-parser.js js/pxxl.json-parser.js js/pxxl.loader.js js/utils.js > dist/pxxl.js && terser dist/pxxl.js -c -m -o dist/pxxl.min.js"
+    "build": "cat lib/jsparse.js js/pxxl.font.js js/pxxl.glyph.js js/pxxl.bdf-parser.js js/pxxl.json-parser.js js/pxxl.loader.js js/utils.js > dist/pxxl.js && terser dist/pxxl.js -c -m -o dist/pxxl.min.js",
+    "site": "npm run build && python3 tools/build_site.py"
   },
   "devDependencies": {
     "terser": "^5.0.0"

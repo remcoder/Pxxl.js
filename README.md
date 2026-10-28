@@ -117,6 +117,9 @@ The demos load fonts via XHR, so they have to be served over HTTP (opening the h
 
 The `leds`, `helloworld` and `css3d` pages are generated from `demos/templates/demo.html` and each demo's `demo.js` with `python3 demos/build.py` (needs `jinja2`, run from the `demos` folder). The `fireworks` and `interactive` pages are hand-written.
 
+### Site
+`npm run site` builds the GitHub Pages site into `_site/` (ignored by git): the demos, `dist/`, the fonts, a regenerated `fonts.zip` and the landing page. `site/` holds legacy files that can't be regenerated (old versioned builds like `pxxl-0.4.0.min.js`, images, the landing page); they're kept so existing URLs keep working. A GitHub Actions workflow (`.github/workflows/pages.yml`) deploys it on every push to `master`.
+
 `tools/fontscanner` is a retired Meteor app that turned TTF fonts into BDF. The code is kept in case it's ever rebuilt without Meteor.
 
 ## Contributing
