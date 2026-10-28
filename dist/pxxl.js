@@ -856,7 +856,9 @@ var Natural = flatten(repeat1(Digit));
 
 var NegativeNumber = flatten(sequence(MINUS, Natural));
 var Integer = action(choice(Natural, NegativeNumber), parseInt);
+//var Word = flatten(repeat1(Alpha));
 
+//var PropName = flatten(sequence(Alpha, flatten(repeat0(choice(Alpha, UNDERSCORE)))));
 var PropName = flatten(repeat1(choice(Alpha, UNDERSCORE)));
 var Prop1 = action(sequence(PropName, repeat1(pick(1,sequence(Spaces, Integer)))), MakeProp1);
 var Prop2 = action(sequence(PropName, Spaces, QUOTED_STRING), MakeProp2);
@@ -876,6 +878,7 @@ var GlyphStart = trace(pick(2, sequence(STARTCHAR, Space, Text, EOL)), "glyphsta
 var GlyphEnd = sequence(ENDCHAR, EOL);
 var Glyph = trace(action(sequence(GlyphStart, repeat0(PropRow), Bitmap, GlyphEnd), MakeGlyph), "glyph");
 
+//var Glyph = action(_Glyph, function(ast) { console.log(ast)} );
 
 var STARTFONT = token("STARTFONT");
 var ENDFONT = token("ENDFONT");
