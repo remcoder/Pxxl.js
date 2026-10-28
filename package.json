@@ -1,4 +1,7 @@
 {
   "name": "pxxl",
-  "version" : "0.4.0"
+  "version": "0.4.0",
+  "devDependencies": {
+    "grunt": "^0.4.5"
+  }
 }
