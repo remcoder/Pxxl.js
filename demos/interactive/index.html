@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=9,chrome=1">
+    <title>Interactive -- Pxxl.js</title>
+    <style>
+    body {
+      text-align: center;
+      margin: 0;
+      color: #FF1492;
+      background-color: #000;
+        font-family: Arial;
+    }
+    h1
+    {
+      text-shadow: white 0px 0px 100px;
+    }
+    a
+    {
+      color: white;
+    }
+    .options
+    {
+
+      width: 400px;
+      padding: 20px 20px 20px 20px;
+      background-color: #666;
+      border-radius: 20px;
+      -webkit-border-radius: 20px;
+      -moz-border-radius: 20px;
+      -webkit-box-shadow: #666 0px 0px 140px;
+      -moz-box-shadow: #666 0px 0px 40px;
+
+      line-height: 25px;
+
+      margin-bottom: 20px;
+    }
+
+    .options label
+    {
+      display:inline-block;
+      color: white;
+      background-color: #444;
+      padding: 0 5px 0 5px;
+      font-weight: bold;
+      border-radius: 5px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      width: 150px;
+      margin: 3px;
+      margin-right: 15px;
+    }
+    .options input, .options select
+    {
+      display:inline-block;
+      width: 150px;
+
+      height: 20px;
+      margin: 3px;
+      padding:0;
+    }
+
+    .options.text-input
+    {
+      width: 400px;
+      margin-right: 20px;
+    }
+
+    .column
+    {
+      display: inline-block;
+      vertical-align:top;
+    }
+    .text-input input
+    {
+      width: 320px;
+      height: 40px;
+      font-size: 200%;
+      text-align: center;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+    }
+
+    canvas {
+      display: inline-block;
+      padding: 40px 20px 20px 20px;
+    }
+    .canvas-wrapper{
+      min-height: 200px;
+    }
+    .instructions
+    {
+      color: black;
+      font-size: 120%;
+      background-color: #ffff88;
+      padding: 2px 10px 2px 10px;
+      border-radius: 4px;
+    }
+
+    .instructions-container
+    {
+      margin-bottom: 15px;
+    }
+
+    .instructions .number
+    {
+      background-color: black;
+      color: white;
+      padding: 0px 5px 0px 5px;
+      font-family: courier;
+      border-radius: 5px;
+    }
+    pre
+    {
+      color: #0f0;
+      text-align: left;
+      line-height: 16px;
+      background-color: #000;
+      padding: 5px;
+      border-radius: 5px;
+    }
+
+    .footer
+    {
+      margin-top: 10px;
+    }
+    </style>
+  </head>
+  <body>
+<div>
+
+  <div class="canvas-wrapper">
+    <canvas id='my-canvas' class='title'></canvas><br/>
+  </div>
+
+  <div class="column">
+    <div class="options text-input">
+      <div class="instructions-container">
+        <span class="instructions"><span class="number">1</span> enter some text &#8594;</span><br/>
+      </div>
+      <input name='text' class='text' type='text' value='Pxxl.js' />
+
+    </div>
+
+  </div>
+
+  <div class="options style column">
+    <div class="instructions-container">
+      <span class="instructions"><span class="number">2</span> choose a style &#8594;</span><br/>
+    </div>
+    <label>font</label>
+    <select name='font' class="fonts"></select>
+
+    <br>
+    <label>style</label>
+    <select name='style' ></select>
+
+    <br>
+    <label>fill</label>
+    <input name='fill' class='color' type='text' value='FF4DF9' />
+
+    <br>
+    <label>stroke</label>
+    <input name='do-stroke' type='checkbox' checked='checked'/>
+
+    <br>
+    <label>stroke color</label>
+    <input name='stroke' class='color' type='text' value='000000' />
+
+    <br>
+    <label>scale</label>
+    <input name='scale' type='range' min='0' max='16' step='1' value='12' />
+
+    <div class='style-blocks'>
+      <br>
+      <label>shadow 1</label>
+      <input name='shadow1' class='color' type='text' value='660B66' />
+
+      <br>
+      <label>shadow 2</label>
+      <input name='shadow2' class='color' type='text' value='D93B23' />
+
+      <br>
+      <label>x offset</label>
+      <input name='Xoffset' class='range-slider x-offset' type='range' min='-10' max='10' step='1' value='-1' />
+
+      <br>
+      <label>y offset</label>
+      <input name='Yoffset' class='range-slider y-offset' type='range' min='-10' max='10' step='1' value='-2' />
+    </div>
+
+    </div>
+
+   </div>
+
+   <div class="footer">
+     see the <a href="https://github.com/remcoder/Pxxl.js">Pxxl.js Github repo</a> for tha codez
+   </div>
+    <script src="jscolor/jscolor.js" type="text/javascript"></script>
+    <script src="../../dist/pxxl.js" type="text/javascript"></script>
+    <script src="blocks.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+    var $ = function (selector) { return document.querySelector(selector); };
+
+    var canvas = $('#my-canvas'),
+      selectFont = $('select[name=font]'),
+      selectStyle = $('select[name=style]'),
+      inputText = $('input[name=text]'),
+      inputFill = $('input[name=fill]'),
+      inputStroke = $('input[name=stroke]'),
+      inputDoStroke = $('input[name=do-stroke]'),
+      inputScale = $('input[name=scale]'),
+      inputShadow1 = $('input[name=shadow1]'),
+      inputShadow2 = $('input[name=shadow2]'),
+      inputXoffset = $('input[name=Xoffset]'),
+      inputYoffset = $('input[name=Yoffset]'),
+      blockOptions = $('.style-blocks');
+
+    var fonts = ["c64", "tektite", "test", "MonteCarloBold", "MonteCarloMedium", "wunexus"];
+    var fonts2 = ["mplus_f10b",
+      "mplus_f10r",
+      "mplus_f12b",
+      "mplus_f12r",
+      "mplus_h10b",
+      "mplus_h10r",
+      "mplus_h12b",
+      "mplus_h12r",
+      "mplus_q06r",
+      "mplus_s10b",
+      "mplus_s10r"];
+
+    function addOption(select, text, value, selected) {
+      var option = document.createElement("option");
+      option.textContent = text;
+      option.value = value;
+      option.selected = !!selected;
+      select.appendChild(option);
+    }
+
+    fonts.forEach(function (item) {
+      addOption(selectFont, item + ".bdf", "../../fonts/" + item + ".bdf", item == "tektite");
+    });
+
+    fonts2.forEach(function (item) {
+      addOption(selectFont, item + ".bdf", "../../fonts/mplus/" + item + ".bdf");
+    });
+
+    var styles = {
+      squares: function (ctx, pixels, options) {
+        for (var p = 0; p < pixels.length; p++) {
+          if (options.fill) ctx.fillRect(pixels[p].x, pixels[p].y, 1, 1);
+          if (options.stroke) ctx.strokeRect(pixels[p].x, pixels[p].y, 1, 1);
+        }
+      },
+      blocks: drawBlocks,
+      circles: function (ctx, pixels) {
+        for (var p = 0; p < pixels.length; p++) {
+          var px = 0.5 + pixels[p].x;
+          var py = 0.5 + pixels[p].y;
+          ctx.beginPath();
+          ctx.moveTo(px, py);
+          ctx.arc(px, py, 0.5, 0, 2 * Math.PI);
+          ctx.fill();
+        }
+      }
+    };
+
+    Object.keys(styles).forEach(function (key) {
+      addOption(selectStyle, key, key, key == "blocks");
+    });
+
+    function update() {
+      var options = {
+        text: inputText.value,
+        font: selectFont.value,
+        style: selectStyle.value,
+        scale: +inputScale.value,
+
+        fill: "#" + inputFill.value,
+        stroke: inputDoStroke.checked ? "#" + inputStroke.value : false,
+        shadow1: "#" + inputShadow1.value,
+        shadow2: "#" + inputShadow2.value,
+
+        Xoffset: ~~inputXoffset.value,
+        Yoffset: ~~inputYoffset.value
+      };
+
+      Pxxl.LoadFont(options.font, function (font) {
+        // skip characters the font has no glyph for
+        var text = options.text.split("").filter(function (c) {
+          return font.glyphs[c.charCodeAt(0)];
+        }).join("");
+        var scale = options.scale;
+        var ctx = canvas.getContext("2d");
+
+        canvas.height = font.FONTBOUNDINGBOX[1] * scale + Math.abs(options.Yoffset || 1) * scale;
+        canvas.width = font.FONTBOUNDINGBOX[0] * text.length * scale + Math.abs(options.Xoffset || 1) * scale;
+        ctx.scale(scale, scale);
+        ctx.lineWidth = 1 / scale;
+
+        // make room for shadows that extend to the left/top
+        var tx = options.Xoffset < 0 ? -options.Xoffset : 0;
+        var ty = options.Yoffset < 0 ? -options.Yoffset : 0;
+        var pixels = font.getPixels(text).map(function (pixel) {
+          return { x: pixel.x + tx, y: pixel.y + ty };
+        });
+
+        if (options.fill) ctx.fillStyle = options.fill;
+        if (options.stroke) ctx.strokeStyle = options.stroke;
+        styles[options.style](ctx, pixels, options);
+      });
+    }
+
+    selectStyle.addEventListener('change', function () {
+      blockOptions.style.display = selectStyle.value == "blocks" ? "" : "none";
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll('select, input'), function (el) {
+      el.addEventListener('change', update);
+      el.addEventListener('click', update);
+    });
+    inputText.addEventListener('keyup', update);
+    update();
+    </script>
+  </body>
+</html>

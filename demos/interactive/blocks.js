@@ -1,6 +1,5 @@
 
-function drawBlocks(pixels, options) {
-  var ctx = this.ctx;
+function drawBlocks(ctx, pixels, options) {
   var fill = options.fill;
   var stroke = options.stroke;
   var shadow1 = options.shadow1 || "#666";
